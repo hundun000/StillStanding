@@ -1,4 +1,5 @@
 /// @description Insert description here
 // You can write your code in this editor
-dataManager=global.thisGame.groupManager;
-roomManager=global.thisGame.teamManager;
+groupNames=ds_list_create();
+
+loadGroups(groupNames);

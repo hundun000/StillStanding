@@ -36,6 +36,9 @@ if(isA){
 			}	
 			break;	
 		case 3:
+			room_goto(room_team);
+			break;	
+		case 4:
 			game_end();
 			break;
 

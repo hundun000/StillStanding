@@ -12,7 +12,7 @@ switch(global.inputReceiver){
 		reciever=mainMenuManager;
 		break;	
 	case InputReceiver.TEAM_MANAGER:
-		reciever=teamManager
+		reciever=teamManager;
 		break;		
 
 }

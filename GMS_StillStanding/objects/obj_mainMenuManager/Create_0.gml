@@ -11,7 +11,11 @@ option[4]="离开";
 numOption=array_length_1d(option);
 
 
-targetOptionIndex=0;
+
+ins_typeBox=instance_create_depth(500,50,1,obj_tpyeBox);
+
+
+//actully not need,use as define 
+targetOptionIndex=-1;
 curBlockIndex=-1;
-ins_typeBox=instance_create_depth(500,50,1,obj_TpyeBox);
 ins_block=noone;

@@ -2,8 +2,8 @@
 // You can write your code in this editor
 
 
-draw_set_font(global.font_CN_mainMenu);
-draw_set_color(c_black);
+
+
 
 var i;
 var space=64;

@@ -25,7 +25,7 @@ readInString[INDEX_RESOURCE_NAME]=file_text_read_string(fileRead); file_text_rea
 if(isBlank)
 	ans=noone;
 else{
-	ans=instance_create_depth(0,0,1,obj_Block);
+	ans=instance_create_depth(0,0,1,obj_block);
 	
 	ans.question=readInString[INDEX_QUESTION];
 	ans.answerA=readInString[INDEX_ANSWER_A];
