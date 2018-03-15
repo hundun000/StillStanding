@@ -6,8 +6,7 @@
     "children": [
         "13577fd6-1efc-4680-8ff3-51e7106a9213",
         "6a7ec20f-a71e-4823-a78a-b3cb81313266",
-        "33488b18-a580-4c2c-8a84-24fd4bd96dde",
-        "5dc49230-4728-47be-9fbd-80b8d5ddfef9"
+        "33488b18-a580-4c2c-8a84-24fd4bd96dde"
     ],
     "filterType": "GMObject",
     "folderName": "Team",

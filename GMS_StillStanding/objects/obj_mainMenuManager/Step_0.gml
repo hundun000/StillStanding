@@ -9,32 +9,12 @@ if(input_dy!=0){
 if(isA){
 	switch(targetOptionIndex){
 		case 0:
-			var block=getTargetBlock(ins_typeBox.text,0);
-			if(block!=noone){
-				if(ins_block!=noone) instance_destroy(ins_block);	
-				ins_block=block;
-				curBlockIndex=0;
-			}
-		case 1:
-			if(curBlockIndex!=-1){
-				var block=getTargetBlock(ins_typeBox.text,curBlockIndex-1);
-				if(block!=noone){
-					if(ins_block!=noone) instance_destroy(ins_block);	
-					ins_block=block;
-					curBlockIndex--;
-				}
-			}
+			room_goto(room_match);
 			break;
-		case 2:			
-			if(curBlockIndex!=-1){
-				var block=getTargetBlock(ins_typeBox.text,curBlockIndex+1);
-				if(block!=noone){
-					if(ins_block!=noone) instance_destroy(ins_block);	
-					ins_block=block;
-					curBlockIndex++;
-				}
-			}	
-			break;	
+		case 1:
+			break;
+		case 2:	
+
 		case 3:
 			room_goto(room_team);
 			break;	

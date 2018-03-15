@@ -7,8 +7,6 @@ if(room==room_team){
 	
 	teamRoomState=TeamRoomState.SELECTING_TEAM;
 	
-	loadTeams(teams);
-	
 	if(ds_list_size(teams)!=0)
 		selectedTeamIndex=0;
 	else

@@ -3,3 +3,7 @@
 
 name=noone;
 banGroupNames=ds_list_create();
+
+numMatch=0;
+sumCorrectAnswer=0;
+sumWrongAnswer=0;

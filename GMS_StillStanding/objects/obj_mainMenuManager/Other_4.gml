@@ -8,6 +8,4 @@ if(room==room_mainMenu){
 	
 	teamRoomState=TeamRoomState.SELECTING_TEAM;
 	targetOptionIndex=0;
-	curBlockIndex=-1;
-	ins_block=noone;
 }

@@ -1,0 +1,154 @@
+/// @description Insert description here
+// You can write your code in this editor
+if(global.inputReceiver!=InputReceiver.PLAY_MANAGER) return;
+
+var isGameTimeGoes=false;//only some in state,game time goes 
+var flag_secondPass;
+if(current_second==timer_lastTimeSec+1||current_second==timer_lastTimeSec-59){
+	timer_lastTimeSec=current_second;
+	flag_secondPass=true;
+}
+else{
+	flag_secondPass=false;
+}
+
+
+
+switch(playState){
+	case PlayState.INIT_PLAY:
+		curTeamIndex=0;
+		ins_match=global.thisGame.matchManager.ins_match;
+		playState=PlayState.INIT_BLOCK;
+		break;
+		
+	case PlayState.INIT_BLOCK:
+		var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+		
+		var numBanGroup=ds_list_size(ins_curTeam.banGroupNames);
+		var numAllGroup=ds_list_size(global.groupManager.groupNames);
+
+		var deadLoopWatchDog=0;
+
+		var isBan=true;//into first loop
+		var isUseOut=true;
+		var targetGroupIndex;
+		var targetGroupName;
+		var numUsed;
+		while(isBan||isUseOut){
+			targetGroupIndex=irandom(numAllGroup-1);
+			targetGroupName=ds_list_find_value(global.groupManager.groupNames,targetGroupIndex);
+			numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
+			
+			isBan=(ds_list_find_index(ins_curTeam.banGroupNames,targetGroupName)!=-1);
+			isUseOut=(numUsed==ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex));
+						
+			if(deadLoopWatchDog++>100000){
+				show_message("watchDog!");
+				clearAllUsedBlock();
+			}
+		}
+		
+		ds_list_replace(global.groupManager.groupNumUsedBlocks,targetGroupIndex,numUsed+1);
+		var numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
+		
+		var isUsed=true;//into first loop
+		var code;
+		var targetBlockIndex;
+		var ins_block;
+		while(isUsed){
+			targetBlockIndex=irandom(numBlock-1);
+			
+			code=targetGroupName+string(targetBlockIndex);
+			isUsed=(ds_list_find_index(global.blockManager.usedBlockCodes,code)!=-1);		
+			
+			if(deadLoopWatchDog++>100000){
+				show_message("watchDog!");
+				clearAllUsedBlock();
+			}
+		}
+		ins_block=getTargetBlock(targetGroupName,targetBlockIndex);
+		
+		ds_list_add(global.blockManager.usedBlockCodes,code);
+		global.blockManager.ins_curBlock=ins_block;
+		
+		timer_lastTimeSec=current_second;
+		selectedOptionIndex=-1;
+		
+		
+		playState=PlayState.WAIT_SELECT_OPTION;
+		break;
+	
+	case PlayState.WAIT_SELECT_OPTION:
+		isGameTimeGoes=true;
+		if(selectedOptionIndex!=-1){	
+			intervalTime=3;
+			playState=PlayState.JUDGE_SELECT_OPTION;
+		}
+		break;
+		
+	case PlayState.JUDGE_SELECT_OPTION:	
+		if(intervalTime==0){
+			
+			
+			var numCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
+			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
+			if(selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer)){
+				ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,numCorrectAnswer+1);
+			}
+			else{
+				
+				ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,numWrongAnswer+1);		
+			}
+			
+			if(numCorrectAnswer+numWrongAnswer+1==ins_match.blockLimit){
+				instance_create_depth(0,0,-1,obj_matchEnd);
+				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+				return;
+			}
+			else{		
+				playState=PlayState.INIT_BLOCK;
+			}
+		}
+		break;
+
+	case PlayState.WAIT_MATCH_END_ANIMATION:	
+		//obj_animation will change from this state
+		break;
+	
+	case PlayState.SHOW_RESULT:
+		if(isA){
+			
+			var size=ds_list_size(ins_match.teams);
+			var i;
+			for(i=0;i<size;i++){
+				var ins_team=ds_list_find_value(ins_match.teams,i);
+				ins_team.numMatch++;
+				ins_team.sumCorrectAnswer+=ds_list_find_value(ins_match.numCorrectAnswer,i);
+				ins_team.sumWrongAnswer+=ds_list_find_value(ins_match.numWrongAnswer,i);
+			}
+			instance_destroy(ins_match);
+			room_goto(room_mainMenu);
+		}
+		break;
+		
+}
+
+
+
+if(flag_secondPass){
+	if(intervalTime!=0)
+		intervalTime--;
+	if(isGameTimeGoes){
+		var usedTime=ds_list_find_value(ins_match.usedTime,curTeamIndex);
+		usedTime++;
+		ds_list_replace(ins_match.usedTime,curTeamIndex,usedTime);
+		
+		if(usedTime==ins_match.timeLimit){
+			if(ins_match.matchType==MatchType.SINGLE_MATCH){
+				instance_create_depth(0,0,-1,obj_matchEnd);
+				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+			}
+		}
+		
+	}
+}

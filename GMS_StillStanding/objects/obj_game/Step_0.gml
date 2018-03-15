@@ -13,8 +13,13 @@ switch(global.inputReceiver){
 		break;	
 	case InputReceiver.TEAM_MANAGER:
 		reciever=teamManager;
-		break;		
-
+		break;
+	case InputReceiver.PLAY_MANAGER:
+		reciever=playManager;
+		break;
+	case InputReceiver.MATCH_MANAGER:
+		reciever=matchManager;
+		break;	
 }
 
 //set reciever

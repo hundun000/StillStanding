@@ -12,16 +12,17 @@ if(fileRead==-1){
 	return noone;
 }
 
-var numBlock;
-numBlock=file_text_read_real(fileRead); file_text_readln(fileRead); 
-if(targetIndex>=numBlock||targetIndex<0)	
-	return noone;
+
+file_text_readln(fileRead); //skip num block line
 
 var i;
 for(i=0;i<targetIndex;i++)
 	readNextBlock(fileRead,true);
 
 var targetBlock=readNextBlock(fileRead,false);
+targetBlock.groupName=groupName;
+targetBlock.indexInGroup=targetIndex;
+
 
 file_text_close(fileRead);
 return targetBlock;
