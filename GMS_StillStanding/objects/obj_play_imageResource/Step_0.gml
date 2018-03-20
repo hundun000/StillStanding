@@ -1,12 +1,16 @@
 /// @description Insert description here
 // You can write your code in this editor
-if(dataManager.ins_curBlock!=noone&&dataManager.ins_curBlock.resourcesName!=STRING_NO_RESOURCE){
+if(dataManager.ins_curBlock!=noone
+   &&getResourceType(dataManager.ins_curBlock.resourcesName)==ResourceType.IMAGE){
 	if(curResourceName!=dataManager.ins_curBlock.resourcesName){
 		curResourceName=dataManager.ins_curBlock.resourcesName;
+		sprite_index=spr_imageResource_change;
 		replaceResourceImage(id,curResourceName);
 	}
 }
 else{
-	image_index=spr_imageResource;
+	sprite_index=spr_imageResource_none;
+	image_xscale=1;
+	image_yscale=1;
 	curResourceName=noone;
 }

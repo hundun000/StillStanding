@@ -4,9 +4,11 @@
 enum PlayState{
 	INIT_PLAY,
 	INIT_BLOCK,	
+	WAIT_SOUND_FIRST_TIME_PLAY,
 	WAIT_SELECT_OPTION,
 	JUDGE_SELECT_OPTION,
 	WAIT_MATCH_END_ANIMATION,
+	WAIT_SWITCH_TEAM_ANIMATION,
 	SHOW_RESULT,
 }
 
@@ -23,4 +25,5 @@ ins_match=noone;//bind with matchManager.ins_match at INIT_PLAY as a speedy refe
 
 intervalTime=-1;
 selectedOptionIndex=-1;
-timer_lastTimeSec=-1;
+timer_frameCounter=-1;
+isGameTimeGoes=false;

@@ -4,6 +4,7 @@
 
 #macro DIRECTORY_GROUP "group/"
 #macro DIRECTORY_RESOURCE "resource/"
+#macro DIRECTORY_SOUND_RESOURCE "sound_resource/"
 
 #macro STRING_NO_RESOURCE "无资源"
 
@@ -33,7 +34,7 @@ global.inputReceiver=InputReceiver.MAIN_MENU;
 
 global.font_CN_play=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
 global.font_CN_teamEdit=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
-global.font_CN_typeBox=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
+global.font_CN_typeBox=font_add("ARIALUNI_fixed.ttf",25,0,0,32,128);
 global.font_CN_mainMenu=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
 global.font_CN_match=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
 

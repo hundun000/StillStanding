@@ -2,10 +2,10 @@
 // You can write your code in this editor
 if(global.inputReceiver!=InputReceiver.PLAY_MANAGER) return;
 
-var isGameTimeGoes=false;//only some in state,game time goes 
+
 var flag_secondPass;
-if(current_second==timer_lastTimeSec+1||current_second==timer_lastTimeSec-59){
-	timer_lastTimeSec=current_second;
+if(timer_frameCounter++==GAME_FPS){
+	timer_frameCounter=0;
 	flag_secondPass=true;
 }
 else{
@@ -13,11 +13,25 @@ else{
 }
 
 
-
+isGameTimeGoes=false;//only some in state,game time goes ,set false as default
 switch(playState){
 	case PlayState.INIT_PLAY:
 		curTeamIndex=0;
 		ins_match=global.thisGame.matchManager.ins_match;
+		
+		var size=ds_list_size(ins_match.teams);
+		var ins_first=instance_find(obj_play_teamInfo,0);//use the first instance to locate
+		var originX=ins_first.x;
+		var originY=ins_first.y;
+		var space=ins_first.sprite_height+5;
+		var i;
+		for(i=1;i<size;i++){
+			var newIns=instance_create_depth(originX,originY+i*space,ins_first.depth,obj_play_teamInfo);
+			newIns.image_xscale=ins_first.image_xscale;
+			newIns.image_yscale=ins_first.image_yscale;
+			newIns.index=i;
+		}
+		
 		playState=PlayState.INIT_BLOCK;
 		break;
 		
@@ -34,6 +48,7 @@ switch(playState){
 		var targetGroupIndex;
 		var targetGroupName;
 		var numUsed;
+		randomise();
 		while(isBan||isUseOut){
 			targetGroupIndex=irandom(numAllGroup-1);
 			targetGroupName=ds_list_find_value(global.groupManager.groupNames,targetGroupIndex);
@@ -71,13 +86,18 @@ switch(playState){
 		ds_list_add(global.blockManager.usedBlockCodes,code);
 		global.blockManager.ins_curBlock=ins_block;
 		
-		timer_lastTimeSec=current_second;
+		timer_frameCounter=0;
 		selectedOptionIndex=-1;
 		
-		
-		playState=PlayState.WAIT_SELECT_OPTION;
+		if(getResourceType(ins_block.resourcesName)==ResourceType.SOUND)
+			playState=PlayState.WAIT_SOUND_FIRST_TIME_PLAY;
+		else
+			playState=PlayState.WAIT_SELECT_OPTION;
 		break;
-	
+		
+	case PlayState.WAIT_SOUND_FIRST_TIME_PLAY:
+		//obj_sound will change from this state
+		break;
 	case PlayState.WAIT_SELECT_OPTION:
 		isGameTimeGoes=true;
 		if(selectedOptionIndex!=-1){	
@@ -88,7 +108,6 @@ switch(playState){
 		
 	case PlayState.JUDGE_SELECT_OPTION:	
 		if(intervalTime==0){
-			
 			
 			var numCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
 			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
@@ -101,7 +120,7 @@ switch(playState){
 			}
 			
 			if(numCorrectAnswer+numWrongAnswer+1==ins_match.blockLimit){
-				instance_create_depth(0,0,-1,obj_matchEnd);
+				instance_create_depth(0,0,-1,obj_play_matchEnd);
 				playState=PlayState.WAIT_MATCH_END_ANIMATION;
 				return;
 			}
@@ -130,7 +149,9 @@ switch(playState){
 			room_goto(room_mainMenu);
 		}
 		break;
-		
+	case PlayState.WAIT_SWITCH_TEAM_ANIMATION:
+		//obj_animation will change from this state
+		break;
 }
 
 
@@ -145,8 +166,14 @@ if(flag_secondPass){
 		
 		if(usedTime==ins_match.timeLimit){
 			if(ins_match.matchType==MatchType.SINGLE_MATCH){
-				instance_create_depth(0,0,-1,obj_matchEnd);
+				instance_create_depth(0,0,-1,obj_play_matchEnd);
 				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+			}
+			else if(ins_match.matchType==MatchType.POLLING_MATCH){
+				var size=ds_list_size(ins_match.teams);
+				curTeamIndex=(curTeamIndex+1) mod size;
+				instance_create_depth(0,0,-1,obj_play_switchTeam);
+				playState=PlayState.WAIT_SWITCH_TEAM_ANIMATION;
 			}
 		}
 		
