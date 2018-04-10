@@ -10,6 +10,6 @@ if(!file_exists(fileName)){
 	return noone;
 }
 
-ins_resource.sound= audio_create_stream(fileName);
+ins_resource.soundStream= audio_create_stream(fileName);
 
 return 1;

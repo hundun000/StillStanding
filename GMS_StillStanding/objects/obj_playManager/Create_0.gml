@@ -17,12 +17,12 @@ enum PlayState{
 
 ROOM_FONT=global.font_CN_play;
 
-playState=PlayState.INIT_PLAY;
+
 
 //actully not need,use as define 
 curTeamIndex=-1;
 ins_match=noone;//bind with matchManager.ins_match at INIT_PLAY as a speedy reference
-
+resultText=noone;
 intervalTime=-1;
 selectedOptionIndex=-1;
 timer_frameCounter=-1;

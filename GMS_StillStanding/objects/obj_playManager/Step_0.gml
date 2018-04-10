@@ -88,6 +88,8 @@ switch(playState){
 		
 		timer_frameCounter=0;
 		selectedOptionIndex=-1;
+		if(ins_match.isTimeResetEveryBlock)
+			ds_list_set(ins_match.usedTime,curTeamIndex,0);
 		
 		if(getResourceType(ins_block.resourcesName)==ResourceType.SOUND)
 			playState=PlayState.WAIT_SOUND_FIRST_TIME_PLAY;
@@ -101,7 +103,7 @@ switch(playState){
 	case PlayState.WAIT_SELECT_OPTION:
 		isGameTimeGoes=true;
 		if(selectedOptionIndex!=-1){	
-			intervalTime=3;
+			intervalTime=3;				
 			playState=PlayState.JUDGE_SELECT_OPTION;
 		}
 		break;
@@ -111,22 +113,33 @@ switch(playState){
 			
 			var numCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
 			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
-			if(selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer)){
-				ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,numCorrectAnswer+1);
+			var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
+			if(isCorrect){
+				ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,++numCorrectAnswer);
 			}
 			else{
-				
-				ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,numWrongAnswer+1);		
+				ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,++numWrongAnswer);		
 			}
 			
-			if(numCorrectAnswer+numWrongAnswer+1==ins_match.blockLimit){
+			if(numCorrectAnswer+numWrongAnswer==ins_match.blockLimit){
+				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+				resultText=ins_curTeam.name+" have answered limit-sum blocks.";
+				global.blockManager.ins_curBlock=noone;
 				instance_create_depth(0,0,-1,obj_play_matchEnd);
 				playState=PlayState.WAIT_MATCH_END_ANIMATION;
 				return;
 			}
-			else{		
-				playState=PlayState.INIT_BLOCK;
+			
+			if(numWrongAnswer==ins_match.wrongLimit){
+				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+				resultText=ins_curTeam.name+" have answered limit-wrong blocks.";
+				global.blockManager.ins_curBlock=noone;
+				instance_create_depth(0,0,-1,obj_play_matchEnd);
+				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+				return;
 			}
+			
+			playState=PlayState.INIT_BLOCK;
 		}
 		break;
 
@@ -146,6 +159,7 @@ switch(playState){
 				ins_team.sumWrongAnswer+=ds_list_find_value(ins_match.numWrongAnswer,i);
 			}
 			instance_destroy(ins_match);
+			ins_match=noone;
 			room_goto(room_mainMenu);
 		}
 		break;
@@ -165,16 +179,21 @@ if(flag_secondPass){
 		ds_list_replace(ins_match.usedTime,curTeamIndex,usedTime);
 		
 		if(usedTime==ins_match.timeLimit){
-			if(ins_match.matchType==MatchType.SINGLE_MATCH){
-				instance_create_depth(0,0,-1,obj_play_matchEnd);
-				playState=PlayState.WAIT_MATCH_END_ANIMATION;
-			}
-			else if(ins_match.matchType==MatchType.POLLING_MATCH){
+			var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+			var numCurrentCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
+			//if(ins_match.matchType==MatchType.SINGLE_MATCH){
+			resultText=ins_curTeam.name+" uses out time.";	
+			//}
+			/*else if(ins_match.matchType==MatchType.POLLING_MATCH){
 				var size=ds_list_size(ins_match.teams);
-				curTeamIndex=(curTeamIndex+1) mod size;
-				instance_create_depth(0,0,-1,obj_play_switchTeam);
-				playState=PlayState.WAIT_SWITCH_TEAM_ANIMATION;
-			}
+				var anotherTeamIndex=(curTeamIndex+1) mod size;
+				var ins_anotherTeam=ds_list_find_value(ins_match.teams,anotherTeamIndex);
+				var numAnotherCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,anotherTeamIndex);
+				resultText=ins_curTeam.name+" uses out time";
+			}*/
+			global.blockManager.ins_curBlock=noone;
+			instance_create_depth(0,0,-1,obj_play_matchEnd);
+			playState=PlayState.WAIT_MATCH_END_ANIMATION;
 		}
 		
 	}

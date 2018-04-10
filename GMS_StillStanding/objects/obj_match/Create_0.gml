@@ -22,5 +22,9 @@ usedTime=ds_list_create();
 numCorrectAnswer=ds_list_create();
 numWrongAnswer=ds_list_create();
 
+
+
 timeLimit=-1;
 blockLimit=-1;
+isTimeResetEveryBlock=false;
+wrongLimit=-1;

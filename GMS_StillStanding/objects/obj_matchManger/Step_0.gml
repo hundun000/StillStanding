@@ -17,16 +17,18 @@ switch(matchRoomState){
 					ds_list_clear(ins_match.teams);
 					break;
 				case INDEX_MATCH_START_SINGLE:
-					ins_match.matchType=MatchType.SINGLE_MATCH;
-					ins_match.timeLimit=-1;
-					ins_match.blockLimit=SINGLE_MATCH_BLOCK_LIMIT;
-					room_goto(room_play);
+					var size=ds_list_size(ins_match.teams);
+					if(size==1){
+						buildMatchByType(ins_match,MatchType.SINGLE_MATCH);
+						room_goto(room_play);
+					}
 					break;
 				case INDEX_MATCH_START_MULTI:
-					ins_match.matchType=MatchType.POLLING_MATCH;
-					ins_match.timeLimit=POLLING_MATCH_TIME_LIMIT;
-					ins_match.blockLimit=-1;
-					room_goto(room_play);
+					var size=ds_list_size(ins_match.teams);
+					if(size==2){
+						buildMatchByType(ins_match,MatchType.POLLING_MATCH);
+						room_goto(room_play);
+					}
 					break;			
 			}
 		}

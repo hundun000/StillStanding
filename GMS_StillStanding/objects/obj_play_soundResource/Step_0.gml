@@ -3,7 +3,7 @@
 if(dataManager.ins_curBlock!=noone
    &&getResourceType(dataManager.ins_curBlock.resourcesName)==ResourceType.SOUND){
 	
-	if(curResourceName!=dataManager.ins_curBlock.resourcesName){
+	if(hadPlay==noone){
 		curResourceName=dataManager.ins_curBlock.resourcesName;
 		prepareSound(id,curResourceName);
 		hadPlay=false;
@@ -12,7 +12,7 @@ if(dataManager.ins_curBlock!=noone
 	
 	
 	
-	if(audio_is_playing(sound)){
+	if(audio_is_playing(soundStream)){
 		image_index=1;
 	}
 	else{
@@ -24,16 +24,17 @@ if(dataManager.ins_curBlock!=noone
 	
 
 	
-	if(roomManager.playState==PlayState.JUDGE_SELECT_OPTION){
-		audio_stop_sound(sound);	
-		audio_destroy_stream(curResourceName);
-		curResourceName=noone;
+	if(roomManager.playState==PlayState.JUDGE_SELECT_OPTION&&soundStream!=noone){
+		audio_stop_sound(ins_snd);	
+		audio_destroy_stream(soundStream);
+		//reset
+		hadPlay=noone;
+		soundStream=noone;
+		ins_snd=noone;
 	}
 
 	
 }
 else{
 	image_index=0;
-	curResourceName=noone;
-	sound=noone;
 }

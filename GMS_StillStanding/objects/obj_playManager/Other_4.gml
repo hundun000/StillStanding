@@ -4,6 +4,11 @@ if(room==room_play){
 	
 	draw_set_font(ROOM_FONT);
 	
+	playState=PlayState.INIT_PLAY;
+	
+	
 	global.inputReceiver=InputReceiver.PLAY_MANAGER;
+	
+	global.blockManager.ins_curBlock=noone;
 	
 }

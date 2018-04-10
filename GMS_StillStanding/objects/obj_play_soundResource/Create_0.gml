@@ -3,7 +3,9 @@
 roomManager=global.thisGame.playManager;
 dataManager=global.blockManager;
 
-curResourceName=noone;
-hadPlay=false;
 
-sound=noone;
+
+curResourceName=noone;
+hadPlay=noone;//noone as not init
+soundStream=noone;
+ins_snd=noone;
