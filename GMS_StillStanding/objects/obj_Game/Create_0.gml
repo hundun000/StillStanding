@@ -37,6 +37,7 @@ global.font_CN_teamEdit=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
 global.font_CN_typeBox=font_add("ARIALUNI_fixed.ttf",25,0,0,32,128);
 global.font_CN_mainMenu=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
 global.font_CN_match=font_add("ARIALUNI_fixed.ttf",20,0,0,32,128);
+global.font_CN_bullet=font_add("ARIALUNI_fixed.ttf",32,0,0,32,128);
 
 //******** instance init ********
 mainMenuManager=instance_find(obj_mainMenuManager,0);
