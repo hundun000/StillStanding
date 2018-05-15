@@ -1,3 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-roomManager=global.thisGame.playManager;
+titleText=noone;
+titleSize=-1;
+font=noone;
+loadGeneralSetting(id);

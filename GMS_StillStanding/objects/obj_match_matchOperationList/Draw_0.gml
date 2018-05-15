@@ -1,8 +1,5 @@
 
 
-if(roomManager.matchRoomState==MatchRoomState.SELECTING_MATCH_OPERATION||
-	roomManager.matchRoomState==MatchRoomState.SELECTING_TEAM){
-
 	var i;
 	var x_text=x;
 	var y_text=y;
@@ -24,4 +21,3 @@ if(roomManager.matchRoomState==MatchRoomState.SELECTING_MATCH_OPERATION||
 		}
 		draw_text(x_text,y_text+i*(font_get_size(roomManager.ROOM_FONT)+space),drawText);
 	}
-}

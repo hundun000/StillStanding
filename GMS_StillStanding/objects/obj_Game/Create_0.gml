@@ -46,7 +46,8 @@ global.groupManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_groupManager);
 global.blockManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_blockManager);
 playManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_playManager);
 matchManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_matchManger);
-
+ruleManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_ruleManager);
 
 //******* data init secend time *********
 loadTeams(teamManager.teams);
+loadRules(ruleManager);

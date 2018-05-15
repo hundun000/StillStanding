@@ -9,7 +9,7 @@ if(manager.ins_match!=noone){
 		color=c_black;
 	
 	var sec=ds_list_find_value(manager.ins_match.usedTime,index);
-	var leftSec=manager.ins_match.timeLimit-sec;
+	var leftSec=manager.ins_match.blockTimeLimit+manager.gainBlockTime-sec;
 	var minute=leftSec div 60;
 	var seccond=leftSec mod 60;
 	

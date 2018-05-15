@@ -16,19 +16,13 @@ switch(matchRoomState){
 				case INDEX_MATCH_CLEAR:
 					ds_list_clear(ins_match.teams);
 					break;
-				case INDEX_MATCH_START_SINGLE:
-					var size=ds_list_size(ins_match.teams);
-					if(size==1){
-						buildMatchByType(ins_match,MatchType.SINGLE_MATCH);
-						room_goto(room_play);
-					}
-					break;
-				case INDEX_MATCH_START_MULTI:
-					var size=ds_list_size(ins_match.teams);
-					if(size==2){
-						buildMatchByType(ins_match,MatchType.POLLING_MATCH);
-						room_goto(room_play);
-					}
+				case INDEX_MATCH_SELECT_RULE:
+					matchRoomState=MatchRoomState.SELECTING_RULE;	
+					selectedRuleIndex=0;
+					break;		
+				case INDEX_MATCH_START:
+					buildMatch(ins_match,curRuleIndex);
+					room_goto(room_play);
 					break;			
 			}
 		}
@@ -66,5 +60,22 @@ switch(matchRoomState){
 			selectedTeamIndex=clamp(selectedTeamIndex+input_dy,0,ds_list_size(global.thisGame.teamManager.teams)-1);
 		}
 		break;	
+		
+	case MatchRoomState.SELECTING_RULE:
+		if(isA){
+			if(selectedRuleIndex!=-1){
+				curRuleIndex=selectedRuleIndex;
+				selectedTeamIndex=-1;
+				matchRoomState=MatchRoomState.SELECTING_MATCH_OPERATION;	
+			}
+		}
+		else if(isB){	
+			matchRoomState=MatchRoomState.SELECTING_MATCH_OPERATION;		
+			selectedRuleIndex=-1;		
+		}
+		else if(input_dy!=0){
+			selectedRuleIndex=clamp(selectedRuleIndex+input_dy,0,ds_list_size(global.thisGame.ruleManager.ruleNames)-1);
+		}
+		break;		
 		
 }

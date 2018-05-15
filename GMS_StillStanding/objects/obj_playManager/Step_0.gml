@@ -32,6 +32,11 @@ switch(playState){
 			newIns.index=i;
 		}
 		
+		playState=PlayState.INIT_SWITCHED_TEAM;
+		break;
+		
+	case PlayState.INIT_SWITCHED_TEAM:
+		switchBlockCounter=0;
 		playState=PlayState.INIT_BLOCK;
 		break;
 		
@@ -48,23 +53,23 @@ switch(playState){
 		var targetGroupIndex;
 		var targetGroupName;
 		var numUsed;
+		var numBlock
 		randomise();
 		while(isBan||isUseOut){
 			targetGroupIndex=irandom(numAllGroup-1);
 			targetGroupName=ds_list_find_value(global.groupManager.groupNames,targetGroupIndex);
 			numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
-			
+			numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
 			isBan=(ds_list_find_index(ins_curTeam.banGroupNames,targetGroupName)!=-1);
-			isUseOut=(numUsed==ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex));
+			isUseOut=(numUsed==numBlock);
 						
 			if(deadLoopWatchDog++>100000){
-				show_message("watchDog!");
+				show_message("deadlock watchDog!");
 				clearAllUsedBlock();
 			}
 		}
 		
 		ds_list_replace(global.groupManager.groupNumUsedBlocks,targetGroupIndex,numUsed+1);
-		var numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
 		
 		var isUsed=true;//into first loop
 		var code;
@@ -77,7 +82,7 @@ switch(playState){
 			isUsed=(ds_list_find_index(global.blockManager.usedBlockCodes,code)!=-1);		
 			
 			if(deadLoopWatchDog++>100000){
-				show_message("watchDog!");
+				show_message("deadlock watchDog!");
 				clearAllUsedBlock();
 			}
 		}
@@ -88,8 +93,8 @@ switch(playState){
 		
 		timer_frameCounter=0;
 		selectedOptionIndex=-1;
-		if(ins_match.isTimeResetEveryBlock)
-			ds_list_set(ins_match.usedTime,curTeamIndex,0);
+		gainBlockTime=0;
+		ds_list_set(ins_match.usedTime,curTeamIndex,0);
 		
 		if(getResourceType(ins_block.resourcesName)==ResourceType.SOUND)
 			playState=PlayState.WAIT_SOUND_FIRST_TIME_PLAY;
@@ -108,9 +113,9 @@ switch(playState){
 			
 			var ins_choiceBullet=instance_create_depth(0,0,-100,obj_choiceBullet);
 			var ins_target=instance_find(obj_play_questionBox,0);
-			ins_choiceBullet.x_bulletTarget=ins_target.x;
+			ins_choiceBullet.x_bulletTarget=ins_target.x+ins_target.sprite_width/2;
 			ins_choiceBullet.y_bulletTarget=ins_target.y;
-			var tanSpeed=(ins_choiceBullet.y_bulletSelf-ins_choiceBullet.y_bulletTarget)/(ins_choiceBullet.y_bulletSelf-ins_choiceBullet.y_bulletTarget);
+			var tanSpeed=(ins_choiceBullet.y_bulletSelf-ins_choiceBullet.y_bulletTarget)/(ins_choiceBullet.x_bulletSelf-ins_choiceBullet.x_bulletTarget);
 			ins_choiceBullet.speedAngle=darctan(tanSpeed);
 			ins_choiceBullet.bulletText=global.blockManager.ins_curBlock.answer[selectedOptionIndex];
 		}
@@ -130,28 +135,40 @@ switch(playState){
 			else{
 				ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,++numWrongAnswer);		
 			}
+			switchBlockCounter++;
 			
-			if(numCorrectAnswer+numWrongAnswer==ins_match.blockLimit){
+			instance_destroy(global.blockManager.ins_curBlock);
+			global.blockManager.ins_curBlock=noone;
+			
+			if(numCorrectAnswer+numWrongAnswer==ins_match.matchBlockNumLimit){
 				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
-				resultText=ins_curTeam.name+" have answered limit-sum blocks.";
-				instance_destroy(global.blockManager.ins_curBlock);
-				global.blockManager.ins_curBlock=noone;
+				resultText=ins_curTeam.name+" have answered limit-sum blocks.";		
 				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 				ins_msg.sprite_index=spr_matchEnd;
-				ins_msg.nextState=PlayState.SHOW_RESULT;
-				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+				ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
+				playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
 				return;
 			}
 			
-			if(numWrongAnswer==ins_match.wrongLimit){
+			if(numWrongAnswer==ins_match.matchWrongLimit){
 				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
 				resultText=ins_curTeam.name+" have answered limit-wrong blocks.";
-				instance_destroy(global.blockManager.ins_curBlock);
-				global.blockManager.ins_curBlock=noone;
 				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 				ins_msg.sprite_index=spr_matchEnd;
-				ins_msg.nextState=PlayState.SHOW_RESULT;
-				playState=PlayState.WAIT_MATCH_END_ANIMATION;
+				ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
+				playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+				return;
+			}
+			
+			if(switchBlockCounter==ins_match.switchBlockNumLimit){
+				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+				ins_msg.sprite_index=spr_switchTeam;
+				ins_msg.nextState=PlayState.INIT_SWITCHED_TEAM;
+				playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+				
+				var size=ds_list_size(ins_match.teams);
+				curTeamIndex=(curTeamIndex+1+size) mod size;
 				return;
 			}
 			
@@ -162,13 +179,24 @@ switch(playState){
 
 
 
-	case PlayState.WAIT_MATCH_END_ANIMATION:	
+	case PlayState.WAIT_SCREEN_MESSAGE_ANIMATION:	
 		//obj_animation will change from this state
 		break;
-	
+	case PlayState.INIT_RESULT_BOARD:	
+		instance_create_depth(0,0,-1,obj_play_resultBoard);
+		resultText+="\n各队得分情况：";
+		var size=ds_list_size(ins_match.teams);
+		var i;
+		for(i=0;i<size;i++){
+			var ins_team=ds_list_find_value(ins_match.teams,i);
+			resultText+=ins_team.name+"队\n";
+			resultText+="答对"+string(ds_list_find_value(ins_match.numCorrectAnswer,i))+"题；";
+			resultText+="答对"+string(ds_list_find_value(ins_match.numCorrectAnswer,i))+"题\n";
+		}
+		playState=PlayState.SHOW_RESULT;
+		break;	
 	case PlayState.SHOW_RESULT:
 		if(isA){
-			
 			var size=ds_list_size(ins_match.teams);
 			var i;
 			for(i=0;i<size;i++){
@@ -179,6 +207,7 @@ switch(playState){
 			}
 			instance_destroy(ins_match);
 			ins_match=noone;
+			playState=noone;
 			room_goto(room_mainMenu);
 		}
 		break;
@@ -197,14 +226,14 @@ if(flag_secondPass){
 		usedTime++;
 		ds_list_replace(ins_match.usedTime,curTeamIndex,usedTime);
 		
-		if(usedTime==ins_match.timeLimit){
+		if(usedTime==ins_match.blockTimeLimit){
 			var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
 			var numCurrentCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
 			resultText=ins_curTeam.name+" uses out time.";	
 			instance_destroy(global.blockManager.ins_curBlock);
 			global.blockManager.ins_curBlock=noone;
 			instance_create_depth(0,0,-1,obj_play_matchEnd);
-			playState=PlayState.WAIT_MATCH_END_ANIMATION;
+			playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
 		}
 		
 	}

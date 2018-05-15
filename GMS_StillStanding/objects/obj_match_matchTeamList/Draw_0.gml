@@ -8,7 +8,6 @@ var space=20;
 draw_set_color(c_black);
 	
 if(size==0){
-
 	draw_text(x_text,y_text,"无");
 }
 else{

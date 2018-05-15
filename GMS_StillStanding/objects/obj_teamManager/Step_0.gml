@@ -10,6 +10,7 @@ switch(teamRoomState){
 			selectedGroupIndex=0;
 		}
 		else if(isB){
+			saveTeams(global.thisGame.teamManager.teams);
 			room_goto(room_mainMenu);	
 			return;
 		}

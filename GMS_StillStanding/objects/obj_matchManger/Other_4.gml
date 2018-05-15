@@ -13,4 +13,6 @@ if(room==room_match){
 	
 	ins_match=instance_create_depth(0,0,DEPTH_MANAGER,obj_match);
 	
+	if(ds_list_size(global.thisGame.ruleManager.ruleNames)!=0)
+		curRuleIndex=0;
 }
