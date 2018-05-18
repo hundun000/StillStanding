@@ -2,9 +2,9 @@
 #macro DEFAULT_TITLE_TEXT "一站到底"
 #macro DEFAULT_TITLE_SIZE 48
 
-var newFilePath=working_directory+"基本设置.txt";
+var filePath=working_directory+"基本设置.txt";
 
-ini_open(newFilePath);
+ini_open(filePath);
 
 var sectionName;
 var i,j;

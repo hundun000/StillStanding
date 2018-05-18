@@ -4,10 +4,11 @@ event_inherited();
 
 
 option[0]="答题";
-option[1]="0";
-option[2]="0";
-option[3]="队伍编辑";
-option[4]="离开";
+option[1]="功能待添加";
+option[2]="查看答题规则";
+option[3]="查看参赛队伍";
+option[4]="查看题库";
+option[5]="退出";
 numOption=array_length_1d(option);
 
 //actully not need,use as define 

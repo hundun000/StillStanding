@@ -20,6 +20,12 @@ switch(global.inputReceiver){
 	case InputReceiver.MATCH_MANAGER:
 		reciever=matchManager;
 		break;	
+	case InputReceiver.RULE_MANAGER:
+		reciever=ruleManager;
+		break;	
+	case InputReceiver.GROUP_MANAGER:
+		reciever=global.groupManager;
+		break;		
 }
 
 //set reciever

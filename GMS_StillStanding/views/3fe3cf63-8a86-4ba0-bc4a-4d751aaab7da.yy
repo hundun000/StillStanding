@@ -15,7 +15,8 @@
         "78644f64-6cf4-417c-8f74-7e51391a3b66",
         "8ed49776-84d8-49b5-8bb3-0043a20af49b",
         "dc14305d-8794-4b2e-b672-f2f5a993895e",
-        "9323ba41-df62-4571-b5d3-adbc688a8b48"
+        "9323ba41-df62-4571-b5d3-adbc688a8b48",
+        "361016ed-51f0-4c4d-ad4e-f8a78d335823"
     ],
     "filterType": "GMSprite",
     "folderName": "Play",

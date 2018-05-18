@@ -11,3 +11,4 @@ for(i=0;i<numBan;i++){
 	var banGroupName=ds_list_find_value(ins_team.banGroupNames,i);
 	file_text_write_string(fileWrite,banGroupName); file_text_writeln(fileWrite); 
 }
+file_text_writeln(fileWrite); 

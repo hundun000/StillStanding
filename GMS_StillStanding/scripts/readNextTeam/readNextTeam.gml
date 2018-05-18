@@ -17,5 +17,5 @@ for(i=0;i<numBan;i++){
 	var banGroupName=file_text_read_string(fileRead); file_text_readln(fileRead); 
 	ds_list_add(ans.banGroupNames,banGroupName);
 }
-
+file_text_readln(fileRead);
 return ans;

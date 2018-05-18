@@ -9,7 +9,7 @@
 	var size=array_length_1d(roomManager.MATCH_OPERATION_TEXTS);
 	for(i=0;i<size;i++){
 		drawText=roomManager.MATCH_OPERATION_TEXTS[i];
-		if(i==roomManager.selectedMatchOperationIndex){
+		if(i==roomManager.selectedOperationIndex){
 			draw_set_color(c_orange);
 			if(roomManager.matchRoomState==MatchRoomState.SELECTING_MATCH_OPERATION)
 				drawText+="<<";

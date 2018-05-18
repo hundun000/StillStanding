@@ -14,11 +14,15 @@ if(isA){
 		case 1:
 			break;
 		case 2:	
-
+			room_goto(room_rule);
+			break;
 		case 3:
 			room_goto(room_team);
 			break;	
 		case 4:
+			room_goto(room_group);
+			break;		
+		case 5:
 			game_end();
 			break;
 

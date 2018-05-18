@@ -14,7 +14,9 @@ enum InputReceiver{
 	MAIN_MENU,
 	TEAM_MANAGER,
 	PLAY_MANAGER,
-	MATCH_MANAGER
+	MATCH_MANAGER,
+	RULE_MANAGER,
+	GROUP_MANAGER
 
 }
 
@@ -49,5 +51,6 @@ matchManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_matchManger);
 ruleManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_ruleManager);
 
 //******* data init secend time *********
-loadTeams(teamManager.teams);
-loadRules(ruleManager);
+loadTeams(noone);
+loadRules(noone);
+loadGroups();

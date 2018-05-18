@@ -6,9 +6,9 @@ if(roomManager.matchRoomState==MatchRoomState.SELECTING_TEAM){
 	var y_text=y;
 	var space=20;
 
-	var size=ds_list_size(dataManager.teams);
+	var size=ds_list_size(roomManager.unSeletedTeams);
 	for(i=0;i<size;i++){
-		var ins_team=ds_list_find_value(dataManager.teams,i);
+		var ins_team=ds_list_find_value(roomManager.unSeletedTeams,i);
 	
 		if(i==roomManager.selectedTeamIndex){
 			draw_set_color(c_orange);

@@ -11,6 +11,7 @@
         "7cc8ebf7-db5b-41e8-9708-327d00d1a755",
         "d2984ea9-57fb-441d-a1ac-488cbb06d1e0",
         "43e5e5b2-43d6-41de-9ef9-6c849e34a2cc",
+        "ce6d7ee1-87e3-4341-b45f-361535605f56",
         "058c0201-1531-418f-8ff2-7c4a342c32b1",
         "3115ac0a-1b61-4780-af8c-6f5affe9f881",
         "0c3b77cc-fa6e-4b96-aa1d-8c7ba18ed98b",
@@ -20,7 +21,7 @@
         "06fa9546-d181-4054-a515-cd17ca48be5e"
     ],
     "filterType": "GMScript",
-    "folderName": "io",
+    "folderName": "sandbox_IO",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

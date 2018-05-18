@@ -1,11 +1,15 @@
-///@argument0 teamList
-
-var teamList=argument0;
+///@argument0 filePath_noone_as_using_sandbox_file
+var teamList=global.thisGame.teamManager.teams;
+var filePath=argument0;
 
 ds_list_clear(teamList);
 
-var fileRead;
-fileRead=file_text_open_read(working_directory+"参赛队伍.txt");
+
+if(filePath==noone)
+	filePath=working_directory+"参赛队伍.txt";
+
+var fileRead=file_text_open_read(filePath);
+	
 if(fileRead==-1){
 	show_message("teamload file error");
 	return noone;
@@ -13,6 +17,7 @@ if(fileRead==-1){
 
 var numTeam;
 numTeam=file_text_read_real(fileRead); file_text_readln(fileRead); 
+file_text_readln(fileRead); 
 var i;
 for(i=0;i<numTeam;i++){
 	var ins_nextTeam=readNextTeam(fileRead);

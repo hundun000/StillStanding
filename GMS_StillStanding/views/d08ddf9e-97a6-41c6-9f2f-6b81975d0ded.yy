@@ -13,7 +13,9 @@
         "3f88f225-85d8-4860-8063-13bec5f05953",
         "979ea7b0-635b-48d5-999c-670d3fb7c295",
         "5063e347-a6e2-4ad0-88a6-5cfc440ac203",
-        "0ddda2fd-1337-48ed-bb6b-b57e2801ab25"
+        "0ddda2fd-1337-48ed-bb6b-b57e2801ab25",
+        "8fd4cd5f-b72e-4899-b4fb-a65311a682b1",
+        "e76273df-6e0d-4550-8864-ef7c96f280fb"
     ],
     "filterType": "GMSprite",
     "folderName": "Abstact",
