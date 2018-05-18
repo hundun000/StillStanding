@@ -2,7 +2,6 @@
 var teamList=global.thisGame.teamManager.teams;
 var filePath=argument0;
 
-ds_list_clear(teamList);
 
 
 if(filePath==noone)
@@ -14,6 +13,9 @@ if(fileRead==-1){
 	show_message("teamload file error");
 	return noone;
 }
+
+ds_list_clear(teamList);
+instance_destroy(obj_team);
 
 var numTeam;
 numTeam=file_text_read_real(fileRead); file_text_readln(fileRead); 

@@ -11,8 +11,11 @@ switch(ruleRoomState){
 					if(ds_list_size(ruleNames)!=0)
 						selectedRuleIndex=0;
 					break;
-				case INDEX_RULE_MORE1:
-				case INDEX_RULE_MORE2:
+				case INDEX_RULE_ADD:
+					inputRuleFile();
+					break;
+				case INDEX_RULE_RESET:
+					saveAndSetDefaultRules();
 					break;		
 		
 			}

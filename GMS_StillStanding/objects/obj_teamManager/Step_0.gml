@@ -3,16 +3,39 @@
 if(global.inputReceiver!=InputReceiver.TEAM_MANAGER)	return;
 
 switch(teamRoomState){
-	
+	case TeamRoomState.SELECTING_TEAM_OPERATION:
+		if(isA){
+			switch(selectedOperationIndex){
+				case INDEX_TEAM_SET_BAN:
+					teamRoomState=TeamRoomState.SELECTING_TEAM;	
+					if(ds_list_size(teams)!=0)
+						selectedTeamIndex=0;
+					break;
+				case INDEX_TEAM_ADD:
+					inputTeamFile();
+					break;	
+				case INDEX_TEAM_RESET:
+					saveAndSetDefaultTeams();
+					break;
+			}
+		}
+		else if(isB){
+			saveTeams();
+			room_goto(room_mainMenu);		
+			return;
+		}
+		else if(input_dy!=0){
+			selectedOperationIndex=clamp(selectedOperationIndex+input_dy,0,array_length_1d(OPERATION_TEXTS)-1);
+		}
+		break;	
 	case TeamRoomState.SELECTING_TEAM:
 		if(isA){
 			teamRoomState=TeamRoomState.SELECTING_GROUP;			
 			selectedGroupIndex=0;
 		}
 		else if(isB){
-			saveTeams(global.thisGame.teamManager.teams);
-			room_goto(room_mainMenu);	
-			return;
+			teamRoomState=TeamRoomState.SELECTING_TEAM_OPERATION;	
+			selectedTeamIndex=-1;
 		}
 		else if(input_dy!=0){
 			selectedTeamIndex=clamp(selectedTeamIndex+input_dy,0,ds_list_size(teams)-1);

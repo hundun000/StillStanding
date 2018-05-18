@@ -1,12 +1,10 @@
-///@argument0 groupList
-///@argument1 groupNumBlockList
-///@argument2 groupNumUsedBlockList
-
 var groupList=global.groupManager.groupNames;
 var groupNumBlockList=global.groupManager.groupNumBlocks;
 var groupNumUsedBlockList=global.groupManager.groupNumUsedBlocks;
 
 ds_list_clear(groupList);
+ds_list_clear(groupNumBlockList);
+ds_list_clear(groupNumUsedBlockList);
 
 var fileNameRead;
 

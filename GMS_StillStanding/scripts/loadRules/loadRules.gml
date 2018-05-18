@@ -9,7 +9,7 @@ if(filePath==noone)
 var fileRead=file_text_open_read(filePath);
 	
 if(!file_exists(fileRead)){
-	saveAndSetDefaultRules(manager);
+	saveAndSetDefaultRules();
 	return;
 }
 

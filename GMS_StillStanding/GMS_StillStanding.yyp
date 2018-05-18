@@ -239,6 +239,14 @@
             }
         },
         {
+            "Key": "32b82b8c-e468-42d1-bb5e-262aff74e275",
+            "Value": {
+                "id": "1e06ed1e-1029-4f4e-adc5-b7da72771c34",
+                "resourcePath": "scripts\\saveAndSetDefaultTeams\\saveAndSetDefaultTeams.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "33488b18-a580-4c2c-8a84-24fd4bd96dde",
             "Value": {
                 "id": "2f709654-19b5-447c-a5ea-355aef66ded1",
@@ -355,6 +363,14 @@
             "Value": {
                 "id": "8a22bbbe-35ac-43ea-9457-e50ac2cacbd8",
                 "resourcePath": "objects\\obj_play_screenMessage\\obj_play_screenMessage.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
+            "Key": "45cd26d3-63bf-4ada-b4ef-42a3bf697590",
+            "Value": {
+                "id": "e48059f0-0b9a-4eec-b912-bb6c77fc8ea1",
+                "resourcePath": "objects\\obj_team_operationList\\obj_team_operationList.yy",
                 "resourceType": "GMObject"
             }
         },
@@ -935,6 +951,14 @@
             }
         },
         {
+            "Key": "d48a7b57-cc38-4d25-b2ce-2c05577c6e09",
+            "Value": {
+                "id": "da8cfb79-fb2e-44d6-9a48-b074516e14c8",
+                "resourcePath": "scripts\\saveAndSetDefaultGroups\\saveAndSetDefaultGroups.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "db44f93d-6c9a-4ede-bc6c-94ea1bfcd035",
             "Value": {
                 "id": "485f6d64-aa3a-43b2-9e95-0e219d904634",
@@ -1143,6 +1167,8 @@
         "f693e119-791b-49d9-b964-199db9503abf",
         "f2e6a2de-9853-4dad-b966-6559ca96c139",
         "06fa9546-d181-4054-a515-cd17ca48be5e",
+        "32b82b8c-e468-42d1-bb5e-262aff74e275",
+        "d48a7b57-cc38-4d25-b2ce-2c05577c6e09",
         "a2e75d8d-f1d4-43f4-a276-46e51360b1ac",
         "23c43319-9a04-4a16-a9f9-94421e30e1b6",
         "035f8544-f3b2-4e42-8a62-21c9b9535a60",

@@ -5,11 +5,13 @@ if(room==room_team){
 	
 	draw_set_font(ROOM_FONT);
 	
-	teamRoomState=TeamRoomState.SELECTING_TEAM;
+	teamRoomState=TeamRoomState.SELECTING_TEAM_OPERATION;
 	
 	if(ds_list_size(teams)!=0)
 		selectedTeamIndex=0;
 	else
 		selectedTeamIndex=-1;
+		
 	selectedGroupIndex=-1;	
+	selectedOperationIndex=0;
 }

@@ -13,8 +13,10 @@ switch(groupRoomState){
 					break;
 				case INDEX_GROUP_ADD:
 					inputGroupFile();
-					break;		
-		
+					break;	
+				case INDEX_GROUP_RESET:
+					saveAndSetDefaultGroups();
+					break;	
 			}
 		}
 		else if(isB){
