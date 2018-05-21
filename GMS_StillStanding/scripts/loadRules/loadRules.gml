@@ -2,22 +2,39 @@
 var manager=global.thisGame.ruleManager;
 var filePath=argument0;
 
-
-if(filePath==noone)
-	filePath=working_directory+"比赛规则.txt";
-
-var fileRead=file_text_open_read(filePath);
+var targetPath;
+if(filePath==noone){
+	var outsidePath=working_directory+"比赛规则.txt"
+	var sandboxPath=working_directory+DIRECTORY_SANDBOX+"比赛规则.txt";
 	
-if(!file_exists(fileRead)){
-	saveAndSetDefaultRules();
-	return;
+	if(file_exists(sandboxPath))
+		targetPath=sandboxPath;
+	else	
+		targetPath=outsidePath;
+}
+else
+	targetPath=file_text_open_read(filePath);
+	
+if(!file_exists(targetPath)){
+	show_message("规则文件不存在");
+	return noone;
 }
 
-ini_open(fileRead);
+
+//var fileRead=file_text_open_read(filePath);
+	
+ini_open(targetPath);
 
 var defultValue=-1;
 var sectionName;
 var i,j;
+
+ds_list_clear(manager.ruleNames);
+ds_list_clear(manager.blockTimeLimits);
+ds_list_clear(manager.matchBlockNumLimits);
+ds_list_clear(manager.matchWrongLimits);
+ds_list_clear(manager.switchBlockNumLimits);
+ds_list_clear(manager.teamNumLimits);
 
 sectionName="Rules parameters";
 var numRule=ini_read_real(sectionName,"numRule",defultValue);

@@ -1,8 +1,8 @@
 {
-    "id": "d48a7b57-cc38-4d25-b2ce-2c05577c6e09",
+    "id": "06fa9546-d181-4054-a515-cd17ca48be5e",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "saveAndSetDefaultGroups",
+    "name": "deleteRulesConfig",
     "IsCompatibility": false,
     "IsDnD": false
 }

@@ -12,7 +12,7 @@
 		drawText=roomManager.OPERATION_TEXTS[i];
 		if(i==roomManager.selectedOperationIndex){
 			draw_set_color(c_orange);
-			if(roomManager.groupRoomState==GroupRoomState.SELECTING_GROUP_OPERATION)
+			if(roomManager.groupRoomState==GroupRoomState.SELECTING_BAN_OPERATION)
 				drawText+="<<";
 			else
 				drawText+=">>";

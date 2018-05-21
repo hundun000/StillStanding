@@ -232,7 +232,9 @@ if(flag_secondPass){
 			resultText=ins_curTeam.name+" uses out time.";	
 			instance_destroy(global.blockManager.ins_curBlock);
 			global.blockManager.ins_curBlock=noone;
-			instance_create_depth(0,0,-1,obj_play_matchEnd);
+			var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+			ins_msg.sprite_index=spr_matchEnd;
+			ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
 			playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
 		}
 		

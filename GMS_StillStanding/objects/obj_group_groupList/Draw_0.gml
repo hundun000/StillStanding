@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-if(roomManager.groupRoomState==GroupRoomState.SELECTING_GROUP){
+if(roomManager.groupRoomState==GroupRoomState.SELECTING_BAN){
 	var i;
 	var x_text=x;
 	var y_text=y;

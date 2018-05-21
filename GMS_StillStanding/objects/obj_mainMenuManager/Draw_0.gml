@@ -15,4 +15,5 @@ for(i=0;i<numOption;i++){
 
 draw_sprite(spr_OptionSeleting,0,x+16,y+targetOptionIndex*space);
 
-draw_text(0,room_height-50,"程序目录为："+working_directory);
+//draw_text(0,room_height-100,"程序working_directory为："+working_directory);
+//draw_text(0,room_height-50,"程序program_directory为："+program_directory);

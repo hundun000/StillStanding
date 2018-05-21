@@ -1,8 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 enum GroupRoomState{
-	SELECTING_GROUP,
-	SELECTING_GROUP_OPERATION
+	SELECTING_BAN,
+	SELECTING_BAN_OPERATION
 }
 
 
@@ -17,10 +17,12 @@ groupNames=ds_list_create();
 groupNumBlocks=ds_list_create();
 groupNumUsedBlocks=ds_list_create();
 
+pickableGroupNames=ds_list_create();
+
 #macro INDEX_GROUP_SHOW 0
 #macro INDEX_GROUP_ADD 1
 #macro INDEX_GROUP_RESET 2
 
 OPERATION_TEXTS[INDEX_GROUP_SHOW]="查看所有题类";
-OPERATION_TEXTS[INDEX_GROUP_ADD]="添加题类";
-OPERATION_TEXTS[INDEX_GROUP_RESET]="清空并重置题库[!]";
+OPERATION_TEXTS[INDEX_GROUP_ADD]="[暂无功能]";
+OPERATION_TEXTS[INDEX_GROUP_RESET]="[暂无功能]";

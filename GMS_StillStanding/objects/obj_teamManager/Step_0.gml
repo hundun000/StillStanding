@@ -6,16 +6,18 @@ switch(teamRoomState){
 	case TeamRoomState.SELECTING_TEAM_OPERATION:
 		if(isA){
 			switch(selectedOperationIndex){
-				case INDEX_TEAM_SET_BAN:
-					teamRoomState=TeamRoomState.SELECTING_TEAM;	
-					if(ds_list_size(teams)!=0)
+				case INDEX_TEAM_SET_BAN:				
+					if(ds_list_size(teams)!=0){
+						teamRoomState=TeamRoomState.SELECTING_TEAM;	
 						selectedTeamIndex=0;
+					}
 					break;
 				case INDEX_TEAM_ADD:
-					inputTeamFile();
+					//inputTeamFile();
 					break;	
 				case INDEX_TEAM_RESET:
-					saveAndSetDefaultTeams();
+					deleteTeamsConfig();
+					loadTeams(noone);
 					break;
 			}
 		}
@@ -30,7 +32,7 @@ switch(teamRoomState){
 		break;	
 	case TeamRoomState.SELECTING_TEAM:
 		if(isA){
-			teamRoomState=TeamRoomState.SELECTING_GROUP;			
+			teamRoomState=TeamRoomState.SELECTING_BAN;			
 			selectedGroupIndex=0;
 		}
 		else if(isB){
@@ -41,7 +43,7 @@ switch(teamRoomState){
 			selectedTeamIndex=clamp(selectedTeamIndex+input_dy,0,ds_list_size(teams)-1);
 		}
 		break;
-	case TeamRoomState.SELECTING_GROUP:	
+	case TeamRoomState.SELECTING_BAN:	
 		if(isA){
 			//toggle ban state
 			var ins_selectedTeam=ds_list_find_value(teams,selectedTeamIndex);

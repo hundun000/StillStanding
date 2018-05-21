@@ -4,7 +4,7 @@ event_inherited();
 
 
 option[0]="答题";
-option[1]="[功能待添加]";
+option[1]="[暂无功能]";
 option[2]="查看答题规则";
 option[3]="查看参赛队伍";
 option[4]="查看题库";

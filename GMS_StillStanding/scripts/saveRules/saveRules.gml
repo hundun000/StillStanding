@@ -1,7 +1,6 @@
-///@argument0 ruleManager
 var manager=global.thisGame.ruleManager;
 
-var filePath=working_directory+"比赛规则.txt";
+var filePath=working_directory+DIRECTORY_SANDBOX+"比赛规则.txt";
 ini_open(filePath);
 
 var sectionName;

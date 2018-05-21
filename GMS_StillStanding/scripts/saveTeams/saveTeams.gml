@@ -1,7 +1,7 @@
 var teamList=global.thisGame.teamManager.teams;
 
 
-var filePath=working_directory+"参赛队伍.txt";
+var filePath=working_directory+DIRECTORY_SANDBOX+"参赛队伍.txt";
 var fileWrite=file_text_open_write(filePath);
 var numTeam;
 numTeam=ds_list_size(teamList);

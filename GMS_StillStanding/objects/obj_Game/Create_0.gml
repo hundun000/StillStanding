@@ -5,6 +5,8 @@
 #macro DIRECTORY_GROUP "group/"
 #macro DIRECTORY_RESOURCE "resource/"
 #macro DIRECTORY_SOUND_RESOURCE "sound_resource/"
+#macro DIRECTORY_SANDBOX "sandbox/"
+
 
 #macro STRING_NO_RESOURCE "无资源"
 
@@ -54,3 +56,5 @@ ruleManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_ruleManager);
 loadTeams(noone);
 loadRules(noone);
 loadGroups();
+//generatePickableGroups();
+//window_set_fullscreen(true);

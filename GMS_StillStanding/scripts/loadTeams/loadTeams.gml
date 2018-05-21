@@ -3,14 +3,21 @@ var teamList=global.thisGame.teamManager.teams;
 var filePath=argument0;
 
 
-
-if(filePath==noone)
-	filePath=working_directory+"参赛队伍.txt";
-
-var fileRead=file_text_open_read(filePath);
+var fileRead;
+if(filePath==noone){
+	var outsidePath=working_directory+"参赛队伍.txt"
+	var sandboxPath=working_directory+DIRECTORY_SANDBOX+"参赛队伍.txt";
+	
+	if(file_exists(sandboxPath))
+		fileRead=file_text_open_read(sandboxPath);
+	else	
+		fileRead=file_text_open_read(outsidePath);
+}
+else
+	fileRead=file_text_open_read(filePath);
 	
 if(fileRead==-1){
-	show_message("teamload file error");
+	show_message("队伍设置文件不存在");
 	return noone;
 }
 

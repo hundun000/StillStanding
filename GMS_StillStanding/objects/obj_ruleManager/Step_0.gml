@@ -12,15 +12,17 @@ switch(ruleRoomState){
 						selectedRuleIndex=0;
 					break;
 				case INDEX_RULE_ADD:
-					inputRuleFile();
+					//inputRuleFile();
 					break;
 				case INDEX_RULE_RESET:
-					saveAndSetDefaultRules();
+					deleteRulesConfig();
+					loadRules(noone);
 					break;		
 		
 			}
 		}
 		else if(isB){
+			saveRules();
 			room_goto(room_mainMenu);		
 			return;
 		}

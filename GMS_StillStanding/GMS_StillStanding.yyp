@@ -74,7 +74,7 @@
             "Key": "06fa9546-d181-4054-a515-cd17ca48be5e",
             "Value": {
                 "id": "c0aa8636-4c4a-4b69-8801-5b0b7c7cb9f9",
-                "resourcePath": "scripts\\saveAndSetDefaultRules\\saveAndSetDefaultRules.yy",
+                "resourcePath": "scripts\\deleteRulesConfig\\deleteRulesConfig.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -167,6 +167,14 @@
             }
         },
         {
+            "Key": "1a01166d-c418-4b8b-b364-23b176d9eadb",
+            "Value": {
+                "id": "61625906-52e3-4b38-9c29-0610c65b441a",
+                "resourcePath": "scripts\\generatePickableGroups\\generatePickableGroups.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "1bb22d78-b1b5-46bd-8d36-bc9660181887",
             "Value": {
                 "id": "ab1935f7-8f8c-498e-933c-ef7b6ca321da",
@@ -242,7 +250,7 @@
             "Key": "32b82b8c-e468-42d1-bb5e-262aff74e275",
             "Value": {
                 "id": "1e06ed1e-1029-4f4e-adc5-b7da72771c34",
-                "resourcePath": "scripts\\saveAndSetDefaultTeams\\saveAndSetDefaultTeams.yy",
+                "resourcePath": "scripts\\deleteTeamsConfig\\deleteTeamsConfig.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -623,6 +631,14 @@
             }
         },
         {
+            "Key": "8245053f-baf0-4789-b736-a4cf825f0fae",
+            "Value": {
+                "id": "accefcd1-5160-43a2-9bb5-21d7521fcbf4",
+                "resourcePath": "sprites\\sprite34\\sprite34.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "86b9ef04-fc2e-46f8-9c9d-b44a081672b0",
             "Value": {
                 "id": "33a7b37e-7733-4ef9-b706-53ac5b427bab",
@@ -951,14 +967,6 @@
             }
         },
         {
-            "Key": "d48a7b57-cc38-4d25-b2ce-2c05577c6e09",
-            "Value": {
-                "id": "da8cfb79-fb2e-44d6-9a48-b074516e14c8",
-                "resourcePath": "scripts\\saveAndSetDefaultGroups\\saveAndSetDefaultGroups.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "db44f93d-6c9a-4ede-bc6c-94ea1bfcd035",
             "Value": {
                 "id": "485f6d64-aa3a-43b2-9e95-0e219d904634",
@@ -1066,7 +1074,7 @@
             "Key": "f2e6a2de-9853-4dad-b966-6559ca96c139",
             "Value": {
                 "id": "e6f3fff9-bec8-4784-8b9a-5c0935c02c73",
-                "resourcePath": "scripts\\saveDefaultGeneralSetting\\saveDefaultGeneralSetting.yy",
+                "resourcePath": "scripts\\unsued_saveDefaultGeneralSetting\\unsued_saveDefaultGeneralSetting.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -1168,7 +1176,6 @@
         "f2e6a2de-9853-4dad-b966-6559ca96c139",
         "06fa9546-d181-4054-a515-cd17ca48be5e",
         "32b82b8c-e468-42d1-bb5e-262aff74e275",
-        "d48a7b57-cc38-4d25-b2ce-2c05577c6e09",
         "a2e75d8d-f1d4-43f4-a276-46e51360b1ac",
         "23c43319-9a04-4a16-a9f9-94421e30e1b6",
         "035f8544-f3b2-4e42-8a62-21c9b9535a60",
@@ -1176,7 +1183,8 @@
         "5fa0e65f-4363-42a3-825e-cdd41bb6ea1a",
         "f57ebcdd-57b8-489b-a79d-c0da46f305e0",
         "a2a31a2a-2e9c-4a4b-9a19-2b9319d33632",
-        "874d570e-a548-4e8b-8f54-dafc17cee112"
+        "874d570e-a548-4e8b-8f54-dafc17cee112",
+        "1a01166d-c418-4b8b-b364-23b176d9eadb"
     ],
     "tutorial": ""
 }

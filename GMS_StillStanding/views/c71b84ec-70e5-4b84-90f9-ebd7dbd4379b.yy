@@ -19,8 +19,7 @@
         "f693e119-791b-49d9-b964-199db9503abf",
         "f2e6a2de-9853-4dad-b966-6559ca96c139",
         "06fa9546-d181-4054-a515-cd17ca48be5e",
-        "32b82b8c-e468-42d1-bb5e-262aff74e275",
-        "d48a7b57-cc38-4d25-b2ce-2c05577c6e09"
+        "32b82b8c-e468-42d1-bb5e-262aff74e275"
     ],
     "filterType": "GMScript",
     "folderName": "sandbox_IO",
