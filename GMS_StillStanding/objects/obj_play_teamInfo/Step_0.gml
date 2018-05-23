@@ -17,10 +17,7 @@ if(manager.ins_match!=noone){
 	text+="Corrext:"+string(ds_list_find_value(manager.ins_match.numCorrectAnswer,index));
 	text+="Wrong:"+string(ds_list_find_value(manager.ins_match.numWrongAnswer,index));
 	
-	if(manager.curTeamIndex==index)
-		image_index=1;
-	else
-		image_index=0;
+
 	
 }
 	

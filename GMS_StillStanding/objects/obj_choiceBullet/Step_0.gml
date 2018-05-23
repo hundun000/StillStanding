@@ -13,5 +13,5 @@ if(x_bulletSelf<x_bulletTarget){
 	if(!isCorrect)
 		ins_msg.sprite_index=spr_blockContinue;	
 	ins_msg.nextState=PlayState.JUDGE_SELECT_OPTION;
-	roomManager.intervalTime=5;	
+	roomManager.intervalTime=PLAY_INTERVAL_TIME;	
 }

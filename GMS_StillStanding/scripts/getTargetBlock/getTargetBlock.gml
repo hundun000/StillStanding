@@ -14,6 +14,7 @@ if(fileRead==-1){
 
 
 file_text_readln(fileRead); //skip num block line
+file_text_readln(fileRead); //blank
 
 var i;
 for(i=0;i<targetIndex;i++)

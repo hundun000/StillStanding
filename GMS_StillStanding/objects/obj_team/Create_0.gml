@@ -13,3 +13,10 @@ sumWrongAnswer=0;
 
 
 numPickChance=-1;
+
+#macro INDEX_SKILL_SKIP 0
+#macro INDEX_SKILL_SEE_WRONG 1
+#macro INDEX_SKILL_CALL_HELP 2
+numSkillChance[INDEX_SKILL_SKIP]=-1;
+numSkillChance[INDEX_SKILL_SEE_WRONG]=-1;
+numSkillChance[INDEX_SKILL_CALL_HELP]=-1;

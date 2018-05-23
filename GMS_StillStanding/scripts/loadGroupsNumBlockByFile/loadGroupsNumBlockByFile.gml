@@ -11,7 +11,7 @@ if(fileRead==-1){
 }
 
 var numBlock;
-numBlock=file_text_read_real(fileRead); file_text_readln(fileRead); 
+numBlock=file_text_read_real(fileRead);
 
 file_text_close(fileRead);
 return numBlock;

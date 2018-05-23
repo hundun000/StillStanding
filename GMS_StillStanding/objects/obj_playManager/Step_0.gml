@@ -25,14 +25,18 @@ switch(playState){
 		var originY=ins_first.y;
 		var space=ins_first.sprite_height+5;
 		var i;
-		for(i=1;i<size;i++){
-			var newIns=instance_create_depth(originX,originY+i*space,ins_first.depth,obj_play_teamInfo);
-			newIns.image_xscale=ins_first.image_xscale;
-			newIns.image_yscale=ins_first.image_yscale;
-			newIns.index=i;
-			
+		for(i=0;i<size;i++){
+			if(i>0){
+				var newIns=instance_create_depth(originX,originY+i*space,ins_first.depth,obj_play_teamInfo);
+				newIns.image_xscale=ins_first.image_xscale;
+				newIns.image_yscale=ins_first.image_yscale;
+				newIns.index=i;
+			}
 			var ins_team=ds_list_find_value(ins_match.teams,i);
 			ins_team.numPickChance=FULL_PICK_CHANCE;
+			ins_team.numSkillChance[INDEX_SKILL_SKIP]=1;
+			ins_team.numSkillChance[INDEX_SKILL_SEE_WRONG]=1;
+			ins_team.numSkillChance[INDEX_SKILL_CALL_HELP]=1;
 		}
 		
 		
@@ -71,13 +75,14 @@ switch(playState){
 		if(numPickGroup>0){
 			isBan=true;//into first loop
 			isUseOut=true;
-			if(numPickChance>0){
+			if(ins_curTeam.numPickChance>0){
 				
-				while(numPickChance-->0&&!isUseOut){
+				while(ins_curTeam.numPickChance-->0&&isUseOut){
 					pickingGroupIndex=irandom(numPickGroup-1);	
 					pickingGroupName=ds_list_find_value(ins_curTeam.pickGroupNames,pickingGroupIndex);
 					
 					targetGroupIndex=ds_list_find_index(global.groupManager.groupNames,pickingGroupName);
+					targetGroupName=pickingGroupName;
 					numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
 					numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
 					isUseOut=(numUsed==numBlock);
@@ -92,7 +97,7 @@ switch(playState){
 				*	(F,T)or(F,F): pick chance use out
 				*	as (T,T) will while-looping 
 				*/
-				isPickSucceed=(numPickChance>=0);			
+				isPickSucceed=(ins_curTeam.numPickChance>=0);			
 			}	
 		}
 		
@@ -139,6 +144,7 @@ switch(playState){
 		ds_list_add(global.blockManager.usedBlockCodes,code);
 		global.blockManager.ins_curBlock=ins_block;
 		
+		skillType=noone;
 		timer_frameCounter=0;
 		selectedOptionIndex=-1;
 		gainBlockTime=0;
@@ -167,7 +173,23 @@ switch(playState){
 			ins_choiceBullet.speedAngle=darctan(tanSpeed);
 			ins_choiceBullet.bulletText=global.blockManager.ins_curBlock.answer[selectedOptionIndex];
 		}
-		break;
+		
+		switch(skillType){
+			case noone:
+				break;
+			case SkillType.SKILL_SKIP:
+				var ins_team=ds_list_find_value(ins_match.teams,curTeamIndex);
+				if(ins_team.numSkillChance[INDEX_SKILL_SKIP]>0){
+					ins_team.numSkillChance[INDEX_SKILL_SKIP]--;
+					var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+					ins_msg.sprite_index=spr_skillSkip;
+					ins_msg.nextState=PlayState.JUDGE_SELECT_OPTION;
+					playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+					intervalTime=PLAY_INTERVAL_TIME;
+				}
+				break;
+		}
+			
 	case PlayState.WAIT_JUDGE_ANIMATION:	
 		//obj_animation will change from this state
 		break;		
@@ -176,12 +198,16 @@ switch(playState){
 			
 			var numCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
 			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
-			var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
-			if(isCorrect){
-				ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,++numCorrectAnswer);
-			}
-			else{
-				ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,++numWrongAnswer);		
+			
+			var isSkillSkip=(skillType==SkillType.SKILL_SKIP);
+			if(!isSkillSkip){
+				var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
+				if(isCorrect){
+					ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,++numCorrectAnswer);
+				}
+				else{
+					ds_list_replace(ins_match.numWrongAnswer,curTeamIndex,++numWrongAnswer);		
+				}			
 			}
 			switchBlockCounter++;
 			

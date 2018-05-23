@@ -1,5 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
+#macro PLAY_INTERVAL_TIME 5
 
 enum PlayState{
 	INIT_PLAY,
@@ -15,6 +16,13 @@ enum PlayState{
 	SHOW_RESULT,
 }
 
+enum SkillType{
+	SKILL_SKIP,
+	SKILL_SEE_WRONG,
+	SKILL_CALL_HELP
+	
+}
+skillType=noone;
 
 
 

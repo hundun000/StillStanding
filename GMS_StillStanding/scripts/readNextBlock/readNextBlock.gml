@@ -21,6 +21,7 @@ readInString[INDEX_ANSWER_C]=file_text_read_string(fileRead); file_text_readln(f
 readInString[INDEX_ANSWER_D]=file_text_read_string(fileRead); file_text_readln(fileRead); 
 readInString[INDEX_RIGHT_ANSWER]=file_text_read_string(fileRead); file_text_readln(fileRead); 
 readInString[INDEX_RESOURCE_NAME]=file_text_read_string(fileRead); file_text_readln(fileRead); 
+file_text_readln(fileRead); //blank
 
 if(isBlank)
 	ans=noone;
