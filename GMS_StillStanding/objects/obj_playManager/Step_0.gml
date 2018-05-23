@@ -30,7 +30,13 @@ switch(playState){
 			newIns.image_xscale=ins_first.image_xscale;
 			newIns.image_yscale=ins_first.image_yscale;
 			newIns.index=i;
+			
+			var ins_team=ds_list_find_value(ins_match.teams,i);
+			ins_team.numPickChance=FULL_PICK_CHANCE;
 		}
+		
+		
+		
 		
 		playState=PlayState.INIT_SWITCHED_TEAM;
 		break;
@@ -44,6 +50,7 @@ switch(playState){
 		var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
 		
 		var numBanGroup=ds_list_size(ins_curTeam.banGroupNames);
+		var numPickGroup=ds_list_size(ins_curTeam.pickGroupNames);
 		var numAllGroup=ds_list_size(global.groupManager.groupNames);
 
 		var deadLoopWatchDog=0;
@@ -53,21 +60,62 @@ switch(playState){
 		var targetGroupIndex;
 		var targetGroupName;
 		var numUsed;
-		var numBlock
+		var numBlock;
+		
+		var pickingGroupIndex;
+		var pickingGroupName;
+		var isPickSucceed;
 		randomise();
-		while(isBan||isUseOut){
-			targetGroupIndex=irandom(numAllGroup-1);
-			targetGroupName=ds_list_find_value(global.groupManager.groupNames,targetGroupIndex);
-			numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
-			numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
-			isBan=(ds_list_find_index(ins_curTeam.banGroupNames,targetGroupName)!=-1);
-			isUseOut=(numUsed==numBlock);
+		
+		isPickSucceed=false;//default
+		if(numPickGroup>0){
+			isBan=true;//into first loop
+			isUseOut=true;
+			if(numPickChance>0){
+				
+				while(numPickChance-->0&&!isUseOut){
+					pickingGroupIndex=irandom(numPickGroup-1);	
+					pickingGroupName=ds_list_find_value(ins_curTeam.pickGroupNames,pickingGroupIndex);
+					
+					targetGroupIndex=ds_list_find_index(global.groupManager.groupNames,pickingGroupName);
+					numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
+					numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
+					isUseOut=(numUsed==numBlock);
 						
-			if(deadLoopWatchDog++>100000){
-				show_message("deadlock watchDog!");
-				clearAllUsedBlock();
+					if(deadLoopWatchDog++>100000){
+						show_message("deadlock watchDog!");
+						clearAllUsedBlock();
+					}
+				}
+				/* here state for (num>=0,isUsedOut) can be 
+				*	(T,F): succesed get usable group 
+				*	(F,T)or(F,F): pick chance use out
+				*	as (T,T) will while-looping 
+				*/
+				isPickSucceed=(numPickChance>=0);			
+			}	
+		}
+		
+		if(!isPickSucceed){		
+			isBan=true;//into first loop
+			isUseOut=true;
+
+			while(isBan||isUseOut){
+				targetGroupIndex=irandom(numAllGroup-1);
+				targetGroupName=ds_list_find_value(global.groupManager.groupNames,targetGroupIndex);
+				numUsed=ds_list_find_value(global.groupManager.groupNumUsedBlocks,targetGroupIndex);
+				numBlock=ds_list_find_value(global.groupManager.groupNumBlocks,targetGroupIndex);
+				isBan=(ds_list_find_index(ins_curTeam.banGroupNames,targetGroupName)!=-1);
+				isUseOut=(numUsed==numBlock);
+						
+				if(deadLoopWatchDog++>100000){
+					show_message("deadlock watchDog!");
+					clearAllUsedBlock();
+				}
 			}
 		}
+		
+		//------ target group is determinated ----------
 		
 		ds_list_replace(global.groupManager.groupNumUsedBlocks,targetGroupIndex,numUsed+1);
 		

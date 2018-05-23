@@ -15,7 +15,7 @@
 				draw_set_color(c_orange);
 				if(manager.teamRoomState==TeamRoomState.SELECTING_TEAM)
 					text+="<<";
-				else if(manager.teamRoomState==TeamRoomState.SELECTING_BAN)
+				else if(manager.teamRoomState==TeamRoomState.SELECTING_BAN||manager.teamRoomState==TeamRoomState.SELECTING_PICK)
 					text+=">>";
 			}
 			else{

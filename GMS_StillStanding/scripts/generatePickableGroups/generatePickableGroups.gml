@@ -5,7 +5,7 @@ var ansList=global.groupManager.pickableGroupNames;
 var size=ds_list_size(groupsList);
 var numPickable=min(NUM_GROUP_PICKABLE,size);
 
-var tempList;
+var tempList=ds_list_create();
 ds_list_copy(tempList,groupsList);
 ds_list_shuffle(tempList);
 ds_list_clear(ansList);

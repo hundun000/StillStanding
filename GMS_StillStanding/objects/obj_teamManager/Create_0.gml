@@ -20,9 +20,9 @@ selectedGroupIndex=-1;
 selectedOperationIndex=-1;
 
 #macro INDEX_TEAM_SET_BAN 0
-#macro INDEX_TEAM_ADD 1
+#macro INDEX_TEAM_SET_PICK 1
 #macro INDEX_TEAM_RESET 2
 
 OPERATION_TEXTS[INDEX_TEAM_SET_BAN]="设置ban题类";
-OPERATION_TEXTS[INDEX_TEAM_ADD]="[暂无功能]";
+OPERATION_TEXTS[INDEX_TEAM_SET_PICK]="设置pick题类";
 OPERATION_TEXTS[INDEX_TEAM_RESET]="清除当前队伍并导入队伍文件";

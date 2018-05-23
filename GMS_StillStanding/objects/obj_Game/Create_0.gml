@@ -56,5 +56,5 @@ ruleManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_ruleManager);
 loadTeams(noone);
 loadRules(noone);
 loadGroups();
-//generatePickableGroups();
+generatePickableGroups();
 //window_set_fullscreen(true);
