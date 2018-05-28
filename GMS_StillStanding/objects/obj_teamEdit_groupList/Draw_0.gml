@@ -5,7 +5,7 @@ var space=20;
 
 if(roomManager.teamRoomState==TeamRoomState.SELECTING_BAN){
 
-	var size=ds_list_size(dataManager.groupNames);
+	var size=ds_list_size(dataManager.banableGroupNames);
 	var strDraw;
 	
 	if(size==0){
@@ -14,7 +14,7 @@ if(roomManager.teamRoomState==TeamRoomState.SELECTING_BAN){
 	}
 	
 	for(i=0;i<size;i++){
-		var groupName=ds_list_find_value(dataManager.groupNames,i);
+		var groupName=ds_list_find_value(dataManager.banableGroupNames,i);
 		strDraw=groupName;
 	
 		if(i==roomManager.selectedGroupIndex){

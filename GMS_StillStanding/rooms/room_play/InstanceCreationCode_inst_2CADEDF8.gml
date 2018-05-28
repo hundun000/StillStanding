@@ -1,0 +1,2 @@
+index=INDEX_SKILL_CALL_HELP_B;
+image_index=index+INDEX_OFFSET;

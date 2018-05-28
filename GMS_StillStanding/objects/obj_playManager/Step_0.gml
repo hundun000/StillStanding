@@ -15,11 +15,11 @@ else{
 
 isGameTimeGoes=false;//only some in state,game time goes ,set false as default
 switch(playState){
-	case PlayState.INIT_PLAY:
-		curTeamIndex=0;
+	case PlayState.INIT_PLAY:	
 		ins_match=global.thisGame.matchManager.ins_match;
-		
 		var size=ds_list_size(ins_match.teams);
+		curTeamIndex=size-1;//when into next state,index++(set to 0)
+		
 		var ins_first=instance_find(obj_play_teamInfo,0);//use the first instance to locate
 		var originX=ins_first.x;
 		var originY=ins_first.y;
@@ -33,10 +33,11 @@ switch(playState){
 				newIns.index=i;
 			}
 			var ins_team=ds_list_find_value(ins_match.teams,i);
-			ins_team.numPickChance=FULL_PICK_CHANCE;
-			ins_team.numSkillChance[INDEX_SKILL_SKIP]=1;
-			ins_team.numSkillChance[INDEX_SKILL_SEE_WRONG]=1;
-			ins_team.numSkillChance[INDEX_SKILL_CALL_HELP]=1;
+			ins_team.numPickChance=global.thisGame.config_FULL_PICK_CHANCE;
+			ins_team.numSkillChance[INDEX_SKILL_SKIP]=2;
+			ins_team.numSkillChance[INDEX_SKILL_SEE_WRONG]=2;
+			ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_A]=2;
+			ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_B]=2;
 		}
 		
 		
@@ -46,6 +47,8 @@ switch(playState){
 		break;
 		
 	case PlayState.INIT_SWITCHED_TEAM:
+		var size=ds_list_size(ins_match.teams);
+		curTeamIndex=(curTeamIndex+1) mod size;
 		switchBlockCounter=0;
 		playState=PlayState.INIT_BLOCK;
 		break;
@@ -71,6 +74,7 @@ switch(playState){
 		var isPickSucceed;
 		randomise();
 		
+		//-------try pick------
 		isPickSucceed=false;//default
 		if(numPickGroup>0){
 			isBan=true;//into first loop
@@ -101,6 +105,7 @@ switch(playState){
 			}	
 		}
 		
+		//-------try roll group------
 		if(!isPickSucceed){		
 			isBan=true;//into first loop
 			isUseOut=true;
@@ -120,7 +125,7 @@ switch(playState){
 			}
 		}
 		
-		//------ target group is determinated ----------
+		//------ try roll block ----------
 		
 		ds_list_replace(global.groupManager.groupNumUsedBlocks,targetGroupIndex,numUsed+1);
 		
@@ -139,16 +144,23 @@ switch(playState){
 				clearAllUsedBlock();
 			}
 		}
-		ins_block=getTargetBlock(targetGroupName,targetBlockIndex);
 		
+		ins_block=getTargetBlock(targetGroupName,targetBlockIndex);
 		ds_list_add(global.blockManager.usedBlockCodes,code);
 		global.blockManager.ins_curBlock=ins_block;
 		
+		//----skill part----
 		skillType=noone;
+		isSkillSkip=false;
+		gainBlockTime=0;
+		isShowWrong[0]=false;
+		isShowWrong[1]=false;
+		isShowWrong[2]=false;
+		isShowWrong[3]=false;
+		
 		timer_frameCounter=0;
 		selectedOptionIndex=-1;
-		gainBlockTime=0;
-		ds_list_set(ins_match.usedTime,curTeamIndex,0);
+		ds_list_set(ins_match.usedTimes,curTeamIndex,0);
 		
 		if(getResourceType(ins_block.resourcesName)==ResourceType.SOUND)
 			playState=PlayState.WAIT_SOUND_FIRST_TIME_PLAY;
@@ -184,10 +196,68 @@ switch(playState){
 					var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 					ins_msg.sprite_index=spr_skillSkip;
 					ins_msg.nextState=PlayState.JUDGE_SELECT_OPTION;
-					playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+					
 					intervalTime=PLAY_INTERVAL_TIME;
+					isSkillSkip=true;
+					
+					skillType=noone;
+					playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
 				}
 				break;
+			case SkillType.SKILL_SEE_WRONG:
+				//if(!(isShowWrong[0]||isShowWrong[1]||isShowWrong[2]||isShowWrong[3])){
+					var ins_team=ds_list_find_value(ins_match.teams,curTeamIndex);
+					if(ins_team.numSkillChance[INDEX_SKILL_SEE_WRONG]>0){
+						ins_team.numSkillChance[INDEX_SKILL_SEE_WRONG]--;
+						var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+						ins_msg.sprite_index=spr_skillSeeWrong;
+						ins_msg.nextState=PlayState.WAIT_SELECT_OPTION;
+					
+						//ensure notShowIndex!=answer
+						var offset=irandom_range(1,3);
+						var notShowIndex=(castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer)+offset) mod 4;
+						
+						for(var i=0;i<4;i++){
+							isShowWrong[i]=(i!=notShowIndex&&i!=castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer));		
+						}
+						
+						skillType=noone;
+						playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+					}
+				//}
+				break;
+			case SkillType.SKILL_CALL_HELP_A:
+				//if(gainBlockTime==0){
+					var ins_team=ds_list_find_value(ins_match.teams,curTeamIndex);
+					if(ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_A]>0){
+						ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_A]--;
+						var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+						ins_msg.sprite_index=spr_skillHelpA;
+						ins_msg.nextState=PlayState.WAIT_SELECT_OPTION;
+						
+						gainBlockTime+=SKILL_TIME_GAIN_CALL_HELP_A;
+						
+						skillType=noone;
+						playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;	
+					}
+				//}
+				break;
+			case SkillType.SKILL_CALL_HELP_B:
+				//if(gainBlockTime==0){
+					var ins_team=ds_list_find_value(ins_match.teams,curTeamIndex);
+					if(ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_B]>0){
+						ins_team.numSkillChance[INDEX_SKILL_CALL_HELP_B]--;
+						var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
+						ins_msg.sprite_index=spr_skillHelpB;
+						ins_msg.nextState=PlayState.WAIT_SELECT_OPTION;
+						
+						gainBlockTime+=SKILL_TIME_GAIN_CALL_HELP_B;
+						
+						skillType=noone;
+						playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;	
+					}
+				//}
+				break;	
 		}
 			
 	case PlayState.WAIT_JUDGE_ANIMATION:	
@@ -199,7 +269,6 @@ switch(playState){
 			var numCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
 			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
 			
-			var isSkillSkip=(skillType==SkillType.SKILL_SKIP);
 			if(!isSkillSkip){
 				var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
 				if(isCorrect){
@@ -216,7 +285,7 @@ switch(playState){
 			
 			if(numCorrectAnswer+numWrongAnswer==ins_match.matchBlockNumLimit){
 				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
-				resultText=ins_curTeam.name+" have answered limit-sum blocks.";		
+				resultText=ins_curTeam.name+"达到了总题数限制\n";		
 				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 				ins_msg.sprite_index=spr_matchEnd;
 				ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
@@ -226,7 +295,7 @@ switch(playState){
 			
 			if(numWrongAnswer==ins_match.matchWrongLimit){
 				var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
-				resultText=ins_curTeam.name+" have answered limit-wrong blocks.";
+				resultText=ins_curTeam.name+"达到了答错题数限制\n";
 				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 				ins_msg.sprite_index=spr_matchEnd;
 				ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
@@ -241,8 +310,7 @@ switch(playState){
 				ins_msg.nextState=PlayState.INIT_SWITCHED_TEAM;
 				playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
 				
-				var size=ds_list_size(ins_match.teams);
-				curTeamIndex=(curTeamIndex+1+size) mod size;
+
 				return;
 			}
 			
@@ -258,15 +326,16 @@ switch(playState){
 		break;
 	case PlayState.INIT_RESULT_BOARD:	
 		instance_create_depth(0,0,-1,obj_play_resultBoard);
-		resultText+="\n各队得分情况：";
+		resultText+="各队得分情况：\n";
 		var size=ds_list_size(ins_match.teams);
 		var i;
 		for(i=0;i<size;i++){
 			var ins_team=ds_list_find_value(ins_match.teams,i);
 			resultText+=ins_team.name+"队\n";
 			resultText+="答对"+string(ds_list_find_value(ins_match.numCorrectAnswer,i))+"题；";
-			resultText+="答对"+string(ds_list_find_value(ins_match.numCorrectAnswer,i))+"题\n";
+			resultText+="答错"+string(ds_list_find_value(ins_match.numWrongAnswer,i))+"题\n";
 		}
+		resultText+="按A键返回主菜单\n";
 		playState=PlayState.SHOW_RESULT;
 		break;	
 	case PlayState.SHOW_RESULT:
@@ -296,21 +365,16 @@ if(flag_secondPass){
 	if(intervalTime!=0)
 		intervalTime--;
 	if(isGameTimeGoes){
-		var usedTime=ds_list_find_value(ins_match.usedTime,curTeamIndex);
-		usedTime++;
-		ds_list_replace(ins_match.usedTime,curTeamIndex,usedTime);
+		var usedTimes=ds_list_find_value(ins_match.usedTimes,curTeamIndex);
+		usedTimes++;
+		ds_list_replace(ins_match.usedTimes,curTeamIndex,usedTimes);
 		
-		if(usedTime==ins_match.blockTimeLimit){
-			var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
-			var numCurrentCorrectAnswer=ds_list_find_value(ins_match.numCorrectAnswer,curTeamIndex);
-			resultText=ins_curTeam.name+" uses out time.";	
-			instance_destroy(global.blockManager.ins_curBlock);
-			global.blockManager.ins_curBlock=noone;
+		if(usedTimes==ins_match.blockTimeLimit+gainBlockTime){
 			var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
-			ins_msg.sprite_index=spr_matchEnd;
-			ins_msg.nextState=PlayState.INIT_RESULT_BOARD;
-			playState=PlayState.WAIT_SCREEN_MESSAGE_ANIMATION;
+			ins_msg.sprite_index=spr_skillTimeOut;
+			ins_msg.nextState=PlayState.JUDGE_SELECT_OPTION;
+					
+			intervalTime=PLAY_INTERVAL_TIME;
 		}
-		
 	}
 }

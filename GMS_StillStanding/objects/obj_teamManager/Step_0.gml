@@ -54,7 +54,7 @@ switch(teamRoomState){
 		if(isA){
 			//toggle ban state
 			var ins_selectedTeam=ds_list_find_value(teams,selectedTeamIndex);
-			var groupName=ds_list_find_value(global.groupManager.groupNames,selectedGroupIndex);
+			var groupName=ds_list_find_value(global.groupManager.banableGroupNames,selectedGroupIndex);
 			var pos=ds_list_find_index(ins_selectedTeam.banGroupNames,groupName);
 			var isBan=(pos!=-1);
 			if(isBan){

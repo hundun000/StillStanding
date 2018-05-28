@@ -3,4 +3,4 @@
 titleText=DEFAULT_TITLE_TEXT;
 titleSize=DEFAULT_TITLE_SIZE;
 font=noone;
-loadGeneralSetting(id);
+loadTitleSetting(id);

@@ -53,8 +53,13 @@ matchManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_matchManger);
 ruleManager=instance_create_depth(0,0,DEPTH_MANAGER,obj_ruleManager);
 
 //******* data init secend time *********
+loadGameSetting();
 loadTeams(noone);
 loadRules(noone);
 loadGroups();
 generatePickableGroups();
+generateBanableGroups();
+
+
+
 //window_set_fullscreen(true);

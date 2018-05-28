@@ -21,4 +21,6 @@ ins_title.titleText=titleText;
 ins_title.titleSize=titleSize;
 ins_title.font=font_add("ARIALUNI_fixed.ttf",titleSize,0,0,32,128);
 
+
+
 ini_close();

@@ -1,8 +1,8 @@
 {
-    "id": "874d570e-a548-4e8b-8f54-dafc17cee112",
+    "id": "1cf81a4b-6716-413c-a7fa-0cc1bdf3c10a",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "inputGroupFile",
+    "name": "loadGameSetting",
     "IsCompatibility": false,
     "IsDnD": false
 }

@@ -1,0 +1,2 @@
+index=INDEX_SKILL_SEE_WRONG;
+image_index=index+INDEX_OFFSET;

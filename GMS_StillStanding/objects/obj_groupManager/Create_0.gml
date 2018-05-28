@@ -18,6 +18,7 @@ groupNumBlocks=ds_list_create();
 groupNumUsedBlocks=ds_list_create();
 
 pickableGroupNames=ds_list_create();
+banableGroupNames=ds_list_create();
 
 #macro INDEX_GROUP_SHOW 0
 #macro INDEX_GROUP_ADD 1

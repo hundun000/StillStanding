@@ -20,8 +20,14 @@ if(roomManager.playState!=PlayState.WAIT_JUDGE_ANIMATION){
 	
 		draw_sprite(spr_judge,subimage,x-64,y);
 	}
-	else
+	else{
+		if(roomManager.isShowWrong[index]){
+			var subimage=1;
+			draw_sprite(spr_judge,subimage,x-64,y);
+		}
+		
 		draw_self();
+	}
 		
 	draw_set_font(roomManager.ROOM_FONT);
 	draw_set_font(global.font_CN_typeBox);

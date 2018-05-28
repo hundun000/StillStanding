@@ -52,7 +52,7 @@ switch(matchRoomState){
 				//var isNotInMatch=(pos==-1);
 				//if(isNotInMatch){
 					ds_list_add(ins_match.teams,ins_team);	
-					ds_list_add(ins_match.usedTime,0);	
+					ds_list_add(ins_match.usedTimes,0);	
 					ds_list_add(ins_match.numCorrectAnswer,0);	
 					ds_list_add(ins_match.numWrongAnswer,0);				
 					ds_list_delete(unSeletedTeams,selectedTeamIndex);
@@ -68,7 +68,7 @@ switch(matchRoomState){
 			selectedTeamIndex=-1;		
 		}
 		else if(input_dy!=0){
-			selectedTeamIndex=clamp(selectedTeamIndex+input_dy,0,ds_list_size(global.thisGame.teamManager.teams)-1);
+			selectedTeamIndex=clamp(selectedTeamIndex+input_dy,0,ds_list_size(unSeletedTeams)-1);
 		}
 		break;	
 		
