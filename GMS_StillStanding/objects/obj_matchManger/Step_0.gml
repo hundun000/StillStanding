@@ -11,15 +11,19 @@ switch(matchRoomState){
 			switch(selectedOperationIndex){
 				case INDEX_MATCH_ADD_TEAM:
 					matchRoomState=MatchRoomState.SELECTING_TEAM;	
-					selectedTeamIndex=0;
+					var size=ds_list_size(unSeletedTeams);
+					if(size>0)
+						selectedTeamIndex=0;
 					break;
 				case INDEX_MATCH_CLEAR:
 					ds_list_copy(unSeletedTeams,global.thisGame.teamManager.teams);
 					ds_list_clear(ins_match.teams);
 					break;
 				case INDEX_MATCH_SELECT_RULE:
-					matchRoomState=MatchRoomState.SELECTING_RULE;	
-					selectedRuleIndex=0;
+					matchRoomState=MatchRoomState.SELECTING_RULE;
+					var size=ds_list_size(global.thisGame.ruleManager.ruleNames);
+					if(size>0)
+						selectedRuleIndex=0;
 					break;		
 				case INDEX_MATCH_START:
 					var curNumTeam=ds_list_size(ins_match.teams);

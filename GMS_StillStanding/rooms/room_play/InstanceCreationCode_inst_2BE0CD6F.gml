@@ -1,2 +1,2 @@
-index=INDEX_SKILL_CALL_HELP_A;
+index=INDEX_SKILL_CALL_HELP_MILK;
 image_index=index+INDEX_OFFSET;

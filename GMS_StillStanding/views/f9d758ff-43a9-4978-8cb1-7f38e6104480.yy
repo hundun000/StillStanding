@@ -6,7 +6,8 @@
     "children": [
         "23c43319-9a04-4a16-a9f9-94421e30e1b6",
         "035f8544-f3b2-4e42-8a62-21c9b9535a60",
-        "de6ced6c-6144-4c4c-9708-765db0496b1c"
+        "de6ced6c-6144-4c4c-9708-765db0496b1c",
+        "244a5304-d8e6-44fc-a6b0-ba531f82fae0"
     ],
     "filterType": "GMScript",
     "folderName": "CastForm",

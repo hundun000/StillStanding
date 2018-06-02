@@ -2,9 +2,9 @@
 // You can write your code in this editor
 if(manager.selectedRuleIndex>=0){
 	var i;
-	var x_text=x;
+	var x_draw=x;
 	var y_text=y;
-	var space=20;
+	var space=117;
 
 	draw_set_color(c_black);
 	draw_set_font(manager.ROOM_FONT);
@@ -18,13 +18,13 @@ if(manager.selectedRuleIndex>=0){
 	value[4]=ds_list_find_value(manager.switchBlockNumLimits,manager.selectedRuleIndex);
 	value[5]=ds_list_find_value(manager.teamNumLimits,manager.selectedRuleIndex);
 	
-	draw_text(x_text,y_text+0*(font_get_size(manager.ROOM_FONT)+space),INFO_TEXTS[0]+value[0]);
+	draw_text(x_draw,y_text+0*space,INFO_TEXTS[0]+value[0]);
 	for(i=1;i<array_length_1d(INFO_TEXTS);i++){
 		if(value[i]==-1)
 			text=INFO_TEXTS[i]+"无限制";
 		else
 			text=INFO_TEXTS[i]+string(value[i]);
-		draw_text(x_text,y_text+i*(font_get_size(manager.ROOM_FONT)+space),text);
+		draw_text(x_draw,y_text+i*space,text);
 	}
 
 

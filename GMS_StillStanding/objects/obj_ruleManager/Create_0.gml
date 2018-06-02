@@ -21,9 +21,9 @@ teamNumLimits=ds_list_create();
 
 
 #macro INDEX_RULE_SHOW 0
-#macro INDEX_RULE_ADD 1
-#macro INDEX_RULE_RESET 2
+//#macro INDEX_RULE_ADD 1
+#macro INDEX_RULE_RESET 1
 
 OPERATION_TEXTS[INDEX_RULE_SHOW]="查看所有规则";
-OPERATION_TEXTS[INDEX_RULE_ADD]="[暂无功能]";
+//OPERATION_TEXTS[INDEX_RULE_ADD]="[暂无功能]";
 OPERATION_TEXTS[INDEX_RULE_RESET]="清除当前规则并导入规则文件";

@@ -5,8 +5,9 @@ if(room==room_group){
 	
 	draw_set_font(ROOM_FONT);
 	
-	groupRoomState=GroupRoomState.SELECTING_BAN_OPERATION;
+	groupRoomState=GroupRoomState.SELECTING_GROUP_OPERATION;
 		
 	selectedOperationIndex=0;
 	selectedGroupIndex=-1;	
+	selectedGroupPage=-1;
 }

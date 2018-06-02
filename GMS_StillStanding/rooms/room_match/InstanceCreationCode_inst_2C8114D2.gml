@@ -1,0 +1,2 @@
+observeState=MatchRoomState.SELECTING_TEAM;
+subImage=SUBIMAGE_MATCH_TEAMS;

@@ -3,3 +3,5 @@
 text="";
 
 color=c_black;
+
+font=global.font_CN_typeBox;

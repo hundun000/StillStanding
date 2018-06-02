@@ -8,21 +8,19 @@ if(input_dy!=0){
 
 if(isA){
 	switch(targetOptionIndex){
-		case 0:
+		case INDEX_MAIN_PLAY:
 			room_goto(room_match);
 			break;
-		case 1:
+		case INDEX_MAIN_TEAM:
+			room_goto(room_team);
 			break;
-		case 2:	
+		case INDEX_MAIN_RULE:	
 			room_goto(room_rule);
 			break;
-		case 3:
-			room_goto(room_team);
-			break;	
-		case 4:
+		case INDEX_MAIN_GROUP:
 			room_goto(room_group);
 			break;		
-		case 5:
+		case INDEX_MAIN_EXIT:
 			game_end();
 			break;
 

@@ -3,7 +3,7 @@ var ansList=global.groupManager.pickableGroupNames;
 
 
 var size=ds_list_size(groupsList);
-var numPickable=min(global.thisGame.config_NUM_GROUP_PICKABLE,size);
+var numPickable=size;  //min(global.thisGame.config_NUM_GROUP_PICKABLE,size);
 
 var tempList=ds_list_create();
 ds_list_copy(tempList,groupsList);

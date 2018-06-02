@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-#macro PLAY_INTERVAL_TIME 5
+#macro PLAY_INTERVAL_TIME 4
 
 enum PlayState{
 	INIT_PLAY,
@@ -44,8 +44,15 @@ curTeamIndex=-1;
 switchBlockCounter=-1;
 
 ins_match=noone;//bind with matchManager.ins_match at INIT_PLAY as a speedy reference
-resultText=noone;
+resultTexts=noone;
 intervalTime=-1;
 selectedOptionIndex=-1;
 timer_frameCounter=-1;
 isGameTimeGoes=false;
+
+#macro INDEX_RESULT_NAME 0
+#macro INDEX_RESULT_NEW_SCORE 1
+#macro INDEX_RESULT_CORRECT 2
+#macro INDEX_RESULT_WRONG 3
+
+resultTexts[0]=noone;

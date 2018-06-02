@@ -4,3 +4,7 @@ event_inherited();
 
 roomManager=global.thisGame.playManager;
 dataManager=global.blockManager;
+
+//override
+
+font=roomManager.ROOM_FONT;

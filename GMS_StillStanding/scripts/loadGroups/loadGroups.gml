@@ -11,6 +11,7 @@ if(directory_exists(working_directory+DIRECTORY_GROUP))
 	ds_list_clear(groupList);
 	ds_list_clear(groupNumBlockList);
 	ds_list_clear(groupNumUsedBlockList);
+	global.groupManager.groupNumBlocksSum=0;
 
 	fileNameRead=file_find_first(working_directory+DIRECTORY_GROUP+"*.txt", 0);
 	while(fileNameRead!=""){
@@ -18,6 +19,7 @@ if(directory_exists(working_directory+DIRECTORY_GROUP))
 		if(ds_list_find_index(groupList,groupName)==-1){
 			ds_list_add(groupList,groupName);
 			var numBlock=loadGroupsNumBlockByName(groupName);
+			global.groupManager.groupNumBlocksSum+=numBlock;
 			ds_list_add(groupNumBlockList,numBlock);
 			ds_list_add(groupNumUsedBlockList,0);
 		}	

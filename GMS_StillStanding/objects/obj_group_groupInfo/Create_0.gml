@@ -5,5 +5,5 @@ manager=global.groupManager;
 curGroupName=noone;
 curGroupNumBlock=-1;
 
-INFO_TEXTS[0]="题组名：";
-INFO_TEXTS[1]="组内题目数：";
+INFO_TEXTS[0]="";
+INFO_TEXTS[1]="题目数：";

@@ -1,15 +1,17 @@
 /// @description Insert description here
 // You can write your code in this editor
-var x_text=x+20;
-
-if(roomManager.playState!=PlayState.WAIT_JUDGE_ANIMATION){
+if(!isBulletAnimation||roomManager.playState!=PlayState.WAIT_JUDGE_ANIMATION){
+	draw_set_font(font);
+	var x_offset=(sprite_width)/2-string_width(text)/2;
+	var x_draw=x+x_offset;
+	var y_draw=y+20;
 
 	if(roomManager.playState==PlayState.JUDGE_SELECT_OPTION){
 		if(roomManager.selectedOptionIndex==index)
-			draw_self();	
+			image_index=1;	
 		else
-			draw_sprite_ext(sprite_index,0,x,y,image_xscale,image_yscale,0,c_gray,1);
-		
+			image_index=0;	
+		draw_self();
 		
 		
 		var subimage;
@@ -18,21 +20,22 @@ if(roomManager.playState!=PlayState.WAIT_JUDGE_ANIMATION){
 		else
 			subimage=1;	
 	
-		draw_sprite(spr_judge,subimage,x-64,y);
+		draw_sprite_ext(spr_judge,subimage,x,y,image_xscale,image_yscale,0,c_white,1);
 	}
 	else{
+		draw_self();
+		
 		if(roomManager.isShowWrong[index]){
 			var subimage=1;
-			draw_sprite(spr_judge,subimage,x-64,y);
+			draw_sprite_ext(spr_judge,subimage,x,y,image_xscale,image_yscale,0,c_white,1);
 		}
 		
-		draw_self();
+		
 	}
 		
-	draw_set_font(roomManager.ROOM_FONT);
-	draw_set_font(global.font_CN_typeBox);
-	draw_set_color(c_black);
-	draw_text(x_text,y,">"+text);	
+
+	draw_set_color(c_white);
+	draw_text(x_draw,y_draw,text);	
 		
 }
 

@@ -11,14 +11,11 @@ switch(ruleRoomState){
 					if(ds_list_size(ruleNames)!=0)
 						selectedRuleIndex=0;
 					break;
-				case INDEX_RULE_ADD:
-					//inputRuleFile();
-					break;
 				case INDEX_RULE_RESET:
+					addLog(LogType.IO_LOG,"清空并重载规则");
 					deleteRulesConfig();
 					loadRules(noone);
 					break;		
-		
 			}
 		}
 		else if(isB){

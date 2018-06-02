@@ -9,12 +9,15 @@ switch(soundState){
 				
 				var fileName=working_directory+DIRECTORY_SOUND_RESOURCE+curResourceName;
 				if(!file_exists(fileName)){
-					show_message("resource not exists");
-					return noone;
+					//show_message("音频资源未找到");
+					soundState=SoundState.SOUND_NOT_WORK;
+					return;
 				}
-				soundStream= audio_create_stream(fileName);
+				else{
+					soundStream=audio_create_stream(fileName);
 				
-				soundState=SoundState.SOUND_WAIT_FIRST_PLAY;
+					soundState=SoundState.SOUND_WAIT_FIRST_PLAY;
+				}
 		}
 		else if(roomManager.playState==PlayState.WAIT_SELECT_OPTION){
 			soundState=SoundState.SOUND_NOT_WORK;
@@ -43,7 +46,7 @@ switch(soundState){
 			
 			var fileName=working_directory+DIRECTORY_SOUND_RESOURCE+curResourceName;
 			if(!file_exists(fileName)){
-				show_message("resource not exists");
+				//show_message("resource not exists");
 				return noone;
 			}
 			audio_destroy_stream(fileName);

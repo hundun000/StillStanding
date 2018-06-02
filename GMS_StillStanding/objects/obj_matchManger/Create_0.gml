@@ -1,5 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
+#macro SUBIMAGE_SELECTED 1
+#macro SUBIMAGE_UNSELECTED 0
+
 enum MatchRoomState{
 	SELECTING_TEAM,
 	SELECTING_MATCH_OPERATION,

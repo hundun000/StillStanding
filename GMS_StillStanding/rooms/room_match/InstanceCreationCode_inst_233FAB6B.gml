@@ -1,0 +1,2 @@
+observeState=MatchRoomState.SELECTING_RULE;
+subImage=SUBIMAGE_MATCH_RULES;

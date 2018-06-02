@@ -3,13 +3,15 @@
 if(global.inputReceiver!=InputReceiver.GROUP_MANAGER)	return;
 
 switch(groupRoomState){
-	case GroupRoomState.SELECTING_BAN_OPERATION:
+	case GroupRoomState.SELECTING_GROUP_OPERATION:
 		if(isA){
 			switch(selectedOperationIndex){
 				case INDEX_GROUP_SHOW:
-					groupRoomState=GroupRoomState.SELECTING_BAN;	
-					if(ds_list_size(groupNames)!=0)
+					groupRoomState=GroupRoomState.SELECTING_GROUP;	
+					if(ds_list_size(groupNames)!=0){
 						selectedGroupIndex=0;
+						selectedGroupPage=0;
+					}
 					break;
 				case INDEX_GROUP_ADD:
 					//inputGroupFile();
@@ -27,13 +29,27 @@ switch(groupRoomState){
 			selectedOperationIndex=clamp(selectedOperationIndex+input_dy,0,array_length_1d(OPERATION_TEXTS)-1);
 		}
 		break;		
-	case GroupRoomState.SELECTING_BAN:
+	case GroupRoomState.SELECTING_GROUP:
 		if(isB){	
-			groupRoomState=GroupRoomState.SELECTING_BAN_OPERATION;		
+			groupRoomState=GroupRoomState.SELECTING_GROUP_OPERATION;		
 			selectedGroupIndex=-1;		
 		}
 		else if(input_dy!=0){
-			selectedGroupIndex=clamp(selectedGroupIndex+input_dy,0,ds_list_size(groupNames)-1);
+			var nextIndex=selectedGroupIndex+input_dy;
+			var indexOfArray=selectedGroupPage*PAGE_SIZE+nextIndex;
+			
+			if(indexOfArray>=0&&indexOfArray<ds_list_size(groupNames)){
+				if(nextIndex>PAGE_SIZE-1){
+					nextIndex=0;
+					selectedGroupPage++;
+				}
+				else if(nextIndex<0){
+					nextIndex=PAGE_SIZE-1;
+					selectedGroupPage--;
+				}
+				selectedGroupIndex=nextIndex;
+			}	
+
 		}
 		break;	
 	

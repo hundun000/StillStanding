@@ -8,3 +8,4 @@ ins_match.blockTimeLimit=ds_list_find_value(global.thisGame.ruleManager.blockTim
 ins_match.matchBlockNumLimit=ds_list_find_value(global.thisGame.ruleManager.matchBlockNumLimits,ruleIndex);
 ins_match.matchWrongLimit=ds_list_find_value(global.thisGame.ruleManager.matchWrongLimits,ruleIndex);
 ins_match.switchBlockNumLimit=ds_list_find_value(global.thisGame.ruleManager.switchBlockNumLimits,ruleIndex);
+ins_match.teamNumLimit=ds_list_find_value(global.thisGame.ruleManager.teamNumLimits,ruleIndex);

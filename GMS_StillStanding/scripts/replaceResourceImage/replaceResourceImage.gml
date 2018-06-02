@@ -8,7 +8,7 @@ var resourceName=argument1;
 var fileName=working_directory+DIRECTORY_RESOURCE+resourceName;
 
 if(!file_exists(fileName)){
-	show_message("resource not exists");
+	show_message("图片资源未找到");
 	return noone;
 }
 

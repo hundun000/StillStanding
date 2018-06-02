@@ -7,7 +7,12 @@ if(dataManager.ins_curBlock!=noone
 		sprite_index=spr_imageResource_change;
 		image_xscale=1;
 		image_yscale=1;
-		replaceResourceImage(id,curResourceName);
+		if(replaceResourceImage(id,curResourceName)==noone){
+			addLog(LogType.ERR_LOG,"读取图片"+curResourceName+"失败");
+			replaceResourceImage(id,DEFAULT_IMAGE_RESOURCE_NAME)
+		}
+		else
+			addLog(LogType.IO_LOG,"读取图片"+curResourceName+"成功");
 	}
 }
 else{

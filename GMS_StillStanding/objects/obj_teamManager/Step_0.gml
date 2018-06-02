@@ -19,6 +19,7 @@ switch(teamRoomState){
 					}
 					break;	
 				case INDEX_TEAM_RESET:
+					addLog(LogType.IO_LOG,"清空并重载队伍");
 					deleteTeamsConfig();
 					loadTeams(noone);
 					break;
@@ -40,6 +41,7 @@ switch(teamRoomState){
 			else
 				teamRoomState=TeamRoomState.SELECTING_PICK;	
 			selectedGroupIndex=0;
+			selectedGroupPage=0;
 		}
 		else if(isB){
 			teamRoomState=TeamRoomState.SELECTING_TEAM_OPERATION;	
@@ -53,8 +55,9 @@ switch(teamRoomState){
 	case TeamRoomState.SELECTING_BAN:	
 		if(isA){
 			//toggle ban state
+			var indexOfArray=selectedGroupPage*PAGE_SIZE+selectedGroupIndex;
 			var ins_selectedTeam=ds_list_find_value(teams,selectedTeamIndex);
-			var groupName=ds_list_find_value(global.groupManager.banableGroupNames,selectedGroupIndex);
+			var groupName=ds_list_find_value(global.groupManager.banableGroupNames,indexOfArray);
 			var pos=ds_list_find_index(ins_selectedTeam.banGroupNames,groupName);
 			var isBan=(pos!=-1);
 			if(isBan){
@@ -71,19 +74,35 @@ switch(teamRoomState){
 		}
 		else if(isB){
 			teamRoomState=TeamRoomState.SELECTING_TEAM;
-			selectedGroupIndex=-1;	
+			selectedGroupIndex=-1;
+			selectedGroupPage=-1;
 			return;
 		}
 		else if(input_dy!=0){
-			selectedGroupIndex=clamp(selectedGroupIndex+input_dy,0,ds_list_size(global.groupManager.groupNames)-1);
+			var nextIndex=selectedGroupIndex+input_dy;
+			var indexOfArray=selectedGroupPage*PAGE_SIZE+nextIndex;
+			
+			if(indexOfArray>=0&&indexOfArray<ds_list_size(global.groupManager.banableGroupNames)){
+				if(nextIndex>PAGE_SIZE-1){
+					nextIndex=0;
+					selectedGroupPage++;
+				}
+				else if(nextIndex<0){
+					nextIndex=PAGE_SIZE-1;
+					selectedGroupPage--;
+				}
+				selectedGroupIndex=nextIndex;
+			}
+			
 		}
 		break;
 		
 	case TeamRoomState.SELECTING_PICK:	
 		if(isA){
 			//toggle pick state
+			var indexOfArray=selectedGroupPage*PAGE_SIZE+selectedGroupIndex;
 			var ins_selectedTeam=ds_list_find_value(teams,selectedTeamIndex);
-			var groupName=ds_list_find_value(global.groupManager.pickableGroupNames,selectedGroupIndex);
+			var groupName=ds_list_find_value(global.groupManager.pickableGroupNames,indexOfArray);
 			var pos=ds_list_find_index(ins_selectedTeam.pickGroupNames,groupName);
 			var isPick=(pos!=-1);
 			if(isPick){
@@ -100,11 +119,25 @@ switch(teamRoomState){
 		}
 		else if(isB){
 			teamRoomState=TeamRoomState.SELECTING_TEAM;
-			selectedGroupIndex=-1;	
+			selectedGroupIndex=-1;
+			selectedGroupPage=-1;
 			return;
 		}
 		else if(input_dy!=0){
-			selectedGroupIndex=clamp(selectedGroupIndex+input_dy,0,ds_list_size(global.groupManager.groupNames)-1);
+			var nextIndex=selectedGroupIndex+input_dy;
+			var indexOfArray=selectedGroupPage*PAGE_SIZE+nextIndex;
+			
+			if(indexOfArray>=0&&indexOfArray<ds_list_size(global.groupManager.pickableGroupNames)){
+				if(nextIndex>PAGE_SIZE-1){
+					nextIndex=0;
+					selectedGroupPage++;
+				}
+				else if(nextIndex<0){
+					nextIndex=PAGE_SIZE-1;
+					selectedGroupPage--;
+				}
+				selectedGroupIndex=nextIndex;
+			}
 		}
 		break;	
 		

@@ -1,0 +1,1 @@
+observeState=MatchRoomState.SELECTING_RULE;

@@ -15,7 +15,5 @@ switch(option){
 		return 3;
 		
 	default:
-		return -2;
-	
-	
+		return -2;	
 }

@@ -15,8 +15,11 @@ ROOM_FONT=global.font_CN_teamEdit;
 //actully not need,use as define 
 teamRoomState=noone;
 teams=ds_list_create();
+
 selectedTeamIndex=-1;
 selectedGroupIndex=-1;
+selectedGroupPage=-1;
+
 selectedOperationIndex=-1;
 
 #macro INDEX_TEAM_SET_BAN 0

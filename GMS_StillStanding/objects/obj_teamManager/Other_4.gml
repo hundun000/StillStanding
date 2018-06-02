@@ -7,11 +7,14 @@ if(room==room_team){
 	
 	teamRoomState=TeamRoomState.SELECTING_TEAM_OPERATION;
 	
-	if(ds_list_size(teams)!=0)
-		selectedTeamIndex=0;
-	else
+	//if(ds_list_size(teams)!=0)
+		//selectedTeamIndex=0;
+	//else
 		selectedTeamIndex=-1;
 		
-	selectedGroupIndex=-1;	
+	selectedGroupIndex=-1;
+	selectedGroupPage=-1;
 	selectedOperationIndex=0;
+	
+	PAGE_SIZE=global.thisGame.config_NUM_GROUP_PICKABLE;
 }

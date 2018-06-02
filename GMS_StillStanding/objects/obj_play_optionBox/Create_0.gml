@@ -4,6 +4,7 @@ roomManager=global.thisGame.playManager;
 dataManager=global.blockManager;
 
 text="";
-
+x_offset=0;
+font=roomManager.ROOM_FONT;
 //actully not need,use as define 
 index=-1;
