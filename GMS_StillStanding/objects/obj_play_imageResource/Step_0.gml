@@ -9,7 +9,7 @@ if(dataManager.ins_curBlock!=noone
 		image_yscale=1;
 		if(replaceResourceImage(id,curResourceName)==noone){
 			addLog(LogType.ERR_LOG,"读取图片"+curResourceName+"失败");
-			replaceResourceImage(id,DEFAULT_IMAGE_RESOURCE_NAME)
+			replaceResourceImage(id,DEFAULT_IMAGE_RESOURCE_NAME);
 		}
 		else
 			addLog(LogType.IO_LOG,"读取图片"+curResourceName+"成功");

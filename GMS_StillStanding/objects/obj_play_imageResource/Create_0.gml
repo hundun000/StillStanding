@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-DEFAULT_IMAGE_RESOURCE_NAME="默认图片资源.png";
+#macro DEFAULT_IMAGE_RESOURCE_NAME "默认图片资源.png"
 
 roomManager=global.thisGame.playManager;
 dataManager=global.blockManager;

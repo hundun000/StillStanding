@@ -1,3 +1,4 @@
+/*
 if (ds_map_find_value(async_load, "id") == get_request)
 {
 	if (ds_map_find_value(async_load, "status") == 0)
@@ -16,3 +17,4 @@ if (ds_map_find_value(async_load, "id") == get_request)
 	
 	
 }
+*/

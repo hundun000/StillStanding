@@ -29,3 +29,7 @@ selectedOperationIndex=-1;
 OPERATION_TEXTS[INDEX_TEAM_SET_BAN]="设置ban题类";
 OPERATION_TEXTS[INDEX_TEAM_SET_PICK]="设置pick题类";
 OPERATION_TEXTS[INDEX_TEAM_RESET]="清除当前队伍并导入队伍文件";
+
+post_request = noone;
+
+

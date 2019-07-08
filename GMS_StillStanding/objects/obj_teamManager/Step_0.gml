@@ -26,7 +26,7 @@ switch(teamRoomState){
 			}
 		}
 		else if(isB){
-			saveTeams();
+			saveTeamsV2();
 			room_goto(room_mainMenu);		
 			return;
 		}
