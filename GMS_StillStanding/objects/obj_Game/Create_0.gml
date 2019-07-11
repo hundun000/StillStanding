@@ -72,7 +72,8 @@ config_FULL_PICK_CHANCE=1;
 
 
 loadGameSetting();
-loadTeams(noone);
+//loadTeams(noone);
+loadTeamsV2();
 loadRules(noone);
 loadGroups();
 generatePickableGroups();

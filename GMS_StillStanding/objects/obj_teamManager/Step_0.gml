@@ -21,7 +21,7 @@ switch(teamRoomState){
 				case INDEX_TEAM_RESET:
 					addLog(LogType.IO_LOG,"清空并重载队伍");
 					deleteTeamsConfig();
-					loadTeams(noone);
+					loadTeamsV2();
 					break;
 			}
 		}
