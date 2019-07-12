@@ -15,7 +15,7 @@ if(!isBulletAnimation||roomManager.playState!=PlayState.WAIT_JUDGE_ANIMATION){
 		
 		
 		var subimage;
-		if(index==castOptionToIndex(dataManager.ins_curBlock.rightAnswer))
+		if(index==dataManager.ins_curBlock.rightAnswer)
 			subimage=0;
 		else
 			subimage=1;	

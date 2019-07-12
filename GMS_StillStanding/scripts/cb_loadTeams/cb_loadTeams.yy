@@ -1,8 +1,8 @@
 {
-    "id": "0c3b77cc-fa6e-4b96-aa1d-8c7ba18ed98b",
+    "id": "a50a45c0-f324-45b0-8d20-dc14c5dc54a6",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "saveNextTeam",
+    "name": "cb_loadTeams",
     "IsCompatibility": false,
     "IsDnD": false
 }

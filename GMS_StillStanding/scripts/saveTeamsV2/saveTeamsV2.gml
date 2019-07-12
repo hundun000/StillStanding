@@ -9,9 +9,9 @@ for(var i = 0;i < numTeam; i++){
 	
 }
 
-var bodyString = json_encode(bodyMap);
-show_debug_message("send bodyString" + bodyString);
-global.thisGame.teamManager.req_saveTeams = http_post_string(host + "/teams", "teams=" + bodyString);
+var bodyString = "teams=" + json_encode(bodyMap);
+show_debug_message("send bodyString: " + bodyString);
+global.thisGame.teamManager.req_saveTeams = http_post_string(host + "/teams", bodyString);
 
 for (var i = 0; i < numTeam; i++){
 	var objectMap = ds_map_find_value(bodyMap, i);

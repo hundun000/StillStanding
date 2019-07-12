@@ -1,8 +1,8 @@
 {
-    "id": "a50a45c0-f324-45b0-8d20-dc14c5dc54a6",
+    "id": "32b60106-03ea-4039-873f-8333b9888c33",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "loadTeamsCallback",
+    "name": "getNewQuestionForTeam",
     "IsCompatibility": false,
     "IsDnD": false
 }

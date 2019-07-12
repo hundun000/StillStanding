@@ -6,6 +6,7 @@ enum PlayState{
 	INIT_PLAY,
 	INIT_SWITCHED_TEAM,
 	INIT_BLOCK,	
+	ASYNC_BLOCK,
 	WAIT_SOUND_FIRST_TIME_PLAY,
 	WAIT_SELECT_OPTION,
 	JUDGE_SELECT_OPTION,
@@ -54,5 +55,8 @@ isGameTimeGoes=false;
 #macro INDEX_RESULT_NEW_SCORE 1
 #macro INDEX_RESULT_CORRECT 2
 #macro INDEX_RESULT_WRONG 3
+
+req_getNewQuestionForTeam = noone;
+
 
 resultTexts[0]=noone;

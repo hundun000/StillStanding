@@ -1,8 +1,8 @@
 {
-    "id": "3115ac0a-1b61-4780-af8c-6f5affe9f881",
+    "id": "695e028f-0ea9-4255-a51e-2f5518c8e00b",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "readNextTeam",
+    "name": "cb_getNewQuestionForTeam",
     "IsCompatibility": false,
     "IsDnD": false
 }

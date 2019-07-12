@@ -13,7 +13,7 @@ if(bulletSpeed>FULL_SPEED*0.5)
 
 if(x_bulletSelf<x_bulletTarget){
 	instance_destroy(id);
-	var isCorrect=roomManager.selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
+	var isCorrect=roomManager.selectedOptionIndex==global.blockManager.ins_curBlock.rightAnswer;
 	var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 	if(isCorrect)
 		ins_msg.sprite_index=spr_blockBreak;

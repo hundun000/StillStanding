@@ -67,8 +67,9 @@ switch(playState){
 		break;
 		
 	case PlayState.INIT_BLOCK:
-		var ins_curTeam=ds_list_find_value(ins_match.teams,curTeamIndex);
+		var ins_curTeam = ds_list_find_value(ins_match.teams,curTeamIndex);
 		
+		/*
 		var numBanGroup=ds_list_size(ins_curTeam.banGroupNames);
 		var numPickGroup=ds_list_size(ins_curTeam.pickGroupNames);
 		var numAllGroup=ds_list_size(global.groupManager.groupNames);
@@ -118,7 +119,7 @@ switch(playState){
 				*   (F,F): succesed and used the last chance
 				*	(F,T): pick chance use out and pick fail
 				*	as (T,T) will while-looping 
-				*/
+				*
 				isPickSucceed=!isUseOut;	
 				
 				if(isPickSucceed){
@@ -191,31 +192,15 @@ switch(playState){
 				deadLoopWatchDog=0;
 			}
 		}
-		addLog(LogType.PLAY_LOG,"成功选中第"+string(targetBlockIndex)+"题");
+		addLog(LogType.PLAY_LOG,"成功选中第"+string(tarsgetBlockIndex)+"题");
+		*/
 		
-		ins_block=getTargetBlock(targetGroupName,targetBlockIndex);
-		ds_list_add(global.blockManager.usedBlockCodes,code);
-		global.blockManager.ins_curBlock=ins_block;
-		
-		//----skill part----
-		skillType=noone;
-		isSkillSkip=false;
-		gainBlockTime=0;
-		isShowWrong[0]=false;
-		isShowWrong[1]=false;
-		isShowWrong[2]=false;
-		isShowWrong[3]=false;
-		
-		timer_frameCounter=0;
-		selectedOptionIndex=-1;
-		ds_list_set(ins_match.usedTimes,curTeamIndex,0);
-		
-		if(getResourceType(ins_block.resourcesName)==ResourceType.SOUND)
-			playState=PlayState.WAIT_SOUND_FIRST_TIME_PLAY;
-		else
-			playState=PlayState.WAIT_SELECT_OPTION;
+		getNewQuestionForTeam(ins_curTeam.name);
+		playState = PlayState.ASYNC_BLOCK;
 		break;
-		
+	case PlayState.ASYNC_BLOCK:
+		//async event will change from this state
+		break;
 	case PlayState.WAIT_SOUND_FIRST_TIME_PLAY:
 		//obj_sound will change from this state
 		break;
@@ -236,7 +221,7 @@ switch(playState){
 				playState=PlayState.WAIT_JUDGE_ANIMATION;
 			}
 			else{
-				var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
+				var isCorrect=selectedOptionIndex==global.blockManager.ins_curBlock.rightAnswer;
 				var ins_msg=instance_create_depth(0,0,-1,obj_play_screenMessage);
 				if(isCorrect)
 					ins_msg.sprite_index=spr_blockBreak;
@@ -286,10 +271,10 @@ switch(playState){
 					
 						//ensure notShowIndex!=answer
 						var offset=irandom_range(1,3);
-						var notShowIndex=(castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer)+offset) mod 4;
+						var notShowIndex=(global.blockManager.ins_curBlock.rightAnswer+offset) mod 4;
 						
 						for(var i=0;i<4;i++){
-							isShowWrong[i]=(i!=notShowIndex&&i!=castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer));		
+							isShowWrong[i]=(i!=notShowIndex&&i!=global.blockManager.ins_curBlock.rightAnswer);		
 						}
 						
 						skillType=noone;
@@ -356,7 +341,7 @@ switch(playState){
 			var numWrongAnswer=ds_list_find_value(ins_match.numWrongAnswer,curTeamIndex);
 			
 			if(!isSkillSkip){
-				var isCorrect=selectedOptionIndex==castOptionToIndex(global.blockManager.ins_curBlock.rightAnswer);
+				var isCorrect=selectedOptionIndex==global.blockManager.ins_curBlock.rightAnswer;
 				if(isCorrect){
 					ds_list_replace(ins_match.numCorrectAnswer,curTeamIndex,++numCorrectAnswer);
 				}
