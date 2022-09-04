@@ -1,0 +1,6 @@
+﻿[Title Setting]
+titleSize="48.000000"
+titleText="一站到底之长文本标题测试"
+[Game Setting]
+FULL_PICK_CHANCE="3.000000"
+NUM_GROUP_PICKABLE="8.000000"
